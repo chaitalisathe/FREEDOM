@@ -31,6 +31,6 @@ fpga_top FPGA_DUT (.prog_clk(f_prog_clk),
 assign gfpga_pad_GPIO_PAD[1] = (f_reset) ? 1'bz  : B;
 assign gfpga_pad_GPIO_PAD[4] = (f_reset) ? 1'bz  : CI;
 assign gfpga_pad_GPIO_PAD[30] = (f_reset) ? 1'bz : A;
-assign CO[0] = gfpga_pad_GPIO_PAD[18];
+assign CO = gfpga_pad_GPIO_PAD[18];
   
 endmodule
