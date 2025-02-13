@@ -171,7 +171,7 @@ wire [OUTPUT_LENGTH - 1 :0] design_output;    // ############# update this
 		
 // ASIC + FPGA design
 asic_fpga_myadder EMULATOR_DUT ( 
-.clk (fpga_op_clk) ,
+.f_op_clk (fpga_op_clk) ,
 .f_prog_clk(fpga_prog_clk), 
 .f_reset(fpga_reset) ,
 .f_ccff_head(ccff_head),
