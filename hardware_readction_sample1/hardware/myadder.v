@@ -1,5 +1,7 @@
 //-----------------------------------------------------
 // Function    : A 1-bit full adder
+// This file has pragmas included for redaction process
+// comment out pragma for RTL simulation.
 //-----------------------------------------------------
 module myadder(
   input [0:0] A, // Input a
@@ -10,9 +12,9 @@ module myadder(
 );
   assign SUM = A ^ B ^ CI;
   
-  //startpragma
+startpragma
   assign CO = (A & B) | (A & CI) | (B & CI); 
-  //endpragma
+endpragma
   
 endmodule
 
