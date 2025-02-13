@@ -96,7 +96,7 @@ This repository has two main folders-
  
 	├── asic_fpga_benchmark_top.v  					# wrapper file for emulator
 	
-
+	├── user_defined_parameters.sv 
 	
 	├── **hardware**/  
 	
