@@ -109,11 +109,11 @@ wire [31:0] pio_in_axi_3;
 wire [31:0] pio_in_axi_4;
 
 //// INPUTS to the FPGA, OUTPUT from HPS
-//wire [31:0] pio_out_axi_0;
-//wire [31:0] pio_out_axi_1;
-//wire [31:0] pio_out_axi_2;
-//wire [31:0] pio_out_axi_3;
-//wire [31:0] pio_out_axi_4;
+wire [31:0] pio_out_axi_0;
+wire [31:0] pio_out_axi_1;
+wire [31:0] pio_out_axi_2;
+wire [31:0] pio_out_axi_3;
+wire [31:0] pio_out_axi_4;
 
 
 wire [159:0] output_w; // consolidated outputs
@@ -132,12 +132,12 @@ wire [0:0] ccff_head;
 wire [0:0] ccff_tail;
 
 
-// ----- Shared inputs -------
-wire [INPUT_LENGTH -1 :0] shared_input;   // ############# update this
+// ----- ASIC + FPGA design inputs -------
+wire [INPUT_LENGTH -1 :0] shared_input; // Inputs to benchmark  
 
 
 // ----- ASIC + FPGA design outputs -------
-wire [OUTPUT_LENGTH - 1 :0] design_output;    // ############# update this
+wire [OUTPUT_LENGTH - 1 :0] design_output; // output from benchmark  
 
 
 
@@ -145,27 +145,34 @@ wire [OUTPUT_LENGTH - 1 :0] design_output;    // ############# update this
 //=======================================================
 //  Structural coding
 //=======================================================
-// State machine- controller instanciation----------
-	controller_ip FSM1(
-	// input signals from HPS
+// ------------State machine- controller instanciation----------
+controller_ip FSM1(
+// input signals from HPS
 
-		.clock(CLOCK_50),
-		.HPS_2_FPGA_axi(pp_out_axi),
-		.HPS_2_FPGA_lw_axi(pp_out_lw_axi),
-		// output from controller flags for HPS
-		
-		.FPGA_2_HPS_lw_axi(pp_in_lw_axi),
-		
-		// output Signals connecting to FPGA_dut
-		.test_input(shared_input),
-		.prog_clk(fpga_prog_clk),
-		.reset(fpga_reset),
-		.op_clk(fpga_op_clk),
-		.ccff_head(ccff_head),
-		
-			//input from open FPGA to controller
-		.ccff_tail(ccff_tail) );
+.clock(CLOCK_50),
+.HPS_2_FPGA_axi(pp_out_axi),
+.HPS_2_FPGA_lw_axi(pp_out_lw_axi),
+// output from controller flags for HPS
 
+.FPGA_2_HPS_lw_axi(pp_in_lw_axi),
+
+// output Signals connecting to FPGA_dut
+.test_input(shared_input),
+.prog_clk(fpga_prog_clk),
+.reset(fpga_reset),
+.op_clk(fpga_op_clk),
+.ccff_head(ccff_head),
+
+//input from open FPGA to controller
+.ccff_tail(ccff_tail) );
+
+
+// ---------Instantiate asic_fpga_benchmark module here----------
+// **********Need to update 
+
+
+
+	
 assign output_w = design_output;	
 
 // Send output back to HPS
@@ -190,144 +197,141 @@ assign LEDR = {pp_in_lw_axi[9:5] , pp_out_lw_axi[4:0]}; // higher 5 leds = FPGA 
 //HexDigit Digit5(HEX5, shared_input[23:20]);	
 
 
-
-
-/************************/	
 // From Qsys
 
 computer_system qsys_system (
-	////////////////////////////////////
-	// FPGA Side
-	////////////////////////////////////
+////////////////////////////////////
+// FPGA Side
+////////////////////////////////////
 
-	// Global signals
-	.system_pll_ref_clk_clk					(CLOCK_50),
-	.system_pll_ref_reset_reset			(1'b0),
-	
-	
-	////////////////////////////////////
-	// PIO ports
-	////////////////////////////////////
-	.pp_out_axi_export               (pp_out_axi),               
-	.pp_in_axi_export                (pp_in_axi),              
+// Global signals
+.system_pll_ref_clk_clk					(CLOCK_50),
+.system_pll_ref_reset_reset			(1'b0),
 
-	.pio_in_axi_0_export             (pio_in_axi_0),             //         pio_axi_in_0.export
-	.pio_in_axi_1_export             (pio_in_axi_1),             //         pio_axi_in_1.export
-	.pio_in_axi_2_export             (pio_in_axi_2),             //         pio_axi_in_2.export
-	.pio_in_axi_3_export             (pio_in_axi_3),             //         pio_axi_in_3.export
-	.pio_in_axi_4_export             (pio_in_axi_4),             //         pio_axi_in_4.export
-	
-	.pio_out_axi_0_export            (pio_out_axi_0),            //        pio_out_axi_0.export
-	.pio_out_axi_1_export            (pio_out_axi_1),            //        pio_out_axi_1.export
-	.pio_out_axi_2_export            (pio_out_axi_2),            //        pio_out_axi_2.export
-	.pio_out_axi_3_export            (pio_out_axi_3),            //        pio_out_axi_3.export
-	.pio_out_axi_4_export            (pio_out_axi_4),            //        pio_axi_out_4.export
-	
-	.pp_out_lw_axi_export            (pp_out_lw_axi),            //        pp_out_lw_axi.export
-	.pp_in_lw_axi_export             (pp_in_lw_axi),             //         pp_in_lw_axi.export
-	////////////////////////////////////
-	// HPS Side
-	////////////////////////////////////
-	// DDR3 SDRAM
-	.memory_mem_a			(HPS_DDR3_ADDR),
-	.memory_mem_ba			(HPS_DDR3_BA),
-	.memory_mem_ck			(HPS_DDR3_CK_P),
-	.memory_mem_ck_n		(HPS_DDR3_CK_N),
-	.memory_mem_cke		(HPS_DDR3_CKE),
-	.memory_mem_cs_n		(HPS_DDR3_CS_N),
-	.memory_mem_ras_n		(HPS_DDR3_RAS_N),
-	.memory_mem_cas_n		(HPS_DDR3_CAS_N),
-	.memory_mem_we_n		(HPS_DDR3_WE_N),
-	.memory_mem_reset_n	(HPS_DDR3_RESET_N),
-	.memory_mem_dq			(HPS_DDR3_DQ),
-	.memory_mem_dqs		(HPS_DDR3_DQS_P),
-	.memory_mem_dqs_n		(HPS_DDR3_DQS_N),
-	.memory_mem_odt		(HPS_DDR3_ODT),
-	.memory_mem_dm			(HPS_DDR3_DM),
-	.memory_oct_rzqin		(HPS_DDR3_RZQ),
-		  
-	// Ethernet
-	.hps_io_hps_io_gpio_inst_GPIO35	(HPS_ENET_INT_N),
-	.hps_io_hps_io_emac1_inst_TX_CLK	(HPS_ENET_GTX_CLK),
-	.hps_io_hps_io_emac1_inst_TXD0	(HPS_ENET_TX_DATA[0]),
-	.hps_io_hps_io_emac1_inst_TXD1	(HPS_ENET_TX_DATA[1]),
-	.hps_io_hps_io_emac1_inst_TXD2	(HPS_ENET_TX_DATA[2]),
-	.hps_io_hps_io_emac1_inst_TXD3	(HPS_ENET_TX_DATA[3]),
-	.hps_io_hps_io_emac1_inst_RXD0	(HPS_ENET_RX_DATA[0]),
-	.hps_io_hps_io_emac1_inst_MDIO	(HPS_ENET_MDIO),
-	.hps_io_hps_io_emac1_inst_MDC		(HPS_ENET_MDC),
-	.hps_io_hps_io_emac1_inst_RX_CTL	(HPS_ENET_RX_DV),
-	.hps_io_hps_io_emac1_inst_TX_CTL	(HPS_ENET_TX_EN),
-	.hps_io_hps_io_emac1_inst_RX_CLK	(HPS_ENET_RX_CLK),
-	.hps_io_hps_io_emac1_inst_RXD1	(HPS_ENET_RX_DATA[1]),
-	.hps_io_hps_io_emac1_inst_RXD2	(HPS_ENET_RX_DATA[2]),
-	.hps_io_hps_io_emac1_inst_RXD3	(HPS_ENET_RX_DATA[3]),
 
-	// Flash
-	.hps_io_hps_io_qspi_inst_IO0	(HPS_FLASH_DATA[0]),
-	.hps_io_hps_io_qspi_inst_IO1	(HPS_FLASH_DATA[1]),
-	.hps_io_hps_io_qspi_inst_IO2	(HPS_FLASH_DATA[2]),
-	.hps_io_hps_io_qspi_inst_IO3	(HPS_FLASH_DATA[3]),
-	.hps_io_hps_io_qspi_inst_SS0	(HPS_FLASH_NCSO),
-	.hps_io_hps_io_qspi_inst_CLK	(HPS_FLASH_DCLK),
+////////////////////////////////////
+// PIO ports
+////////////////////////////////////
+.pp_out_axi_export               (pp_out_axi),               
+.pp_in_axi_export                (pp_in_axi),              
 
-	// Accelerometer
-	.hps_io_hps_io_gpio_inst_GPIO61	(HPS_GSENSOR_INT),
+.pio_in_axi_0_export             (pio_in_axi_0),             //         pio_axi_in_0.export
+.pio_in_axi_1_export             (pio_in_axi_1),             //         pio_axi_in_1.export
+.pio_in_axi_2_export             (pio_in_axi_2),             //         pio_axi_in_2.export
+.pio_in_axi_3_export             (pio_in_axi_3),             //         pio_axi_in_3.export
+.pio_in_axi_4_export             (pio_in_axi_4),             //         pio_axi_in_4.export
 
-	//.adc_sclk                        (ADC_SCLK),
-	//.adc_cs_n                        (ADC_CS_N),
-	//.adc_dout                        (ADC_DOUT),
-	//.adc_din                         (ADC_DIN),
+.pio_out_axi_0_export            (pio_out_axi_0),            //        pio_out_axi_0.export
+.pio_out_axi_1_export            (pio_out_axi_1),            //        pio_out_axi_1.export
+.pio_out_axi_2_export            (pio_out_axi_2),            //        pio_out_axi_2.export
+.pio_out_axi_3_export            (pio_out_axi_3),            //        pio_out_axi_3.export
+.pio_out_axi_4_export            (pio_out_axi_4),            //        pio_axi_out_4.export
 
-	// General Purpose I/O
-	//.hps_io_hps_io_gpio_inst_GPIO40	(HPS_LED),
-	//.hps_io_hps_io_gpio_inst_GPIO41	(HPS_LED),
+.pp_out_lw_axi_export            (pp_out_lw_axi),            //        pp_out_lw_axi.export
+.pp_in_lw_axi_export             (pp_in_lw_axi),             //         pp_in_lw_axi.export
+////////////////////////////////////
+// HPS Side
+////////////////////////////////////
+// DDR3 SDRAM
+.memory_mem_a			(HPS_DDR3_ADDR),
+.memory_mem_ba			(HPS_DDR3_BA),
+.memory_mem_ck			(HPS_DDR3_CK_P),
+.memory_mem_ck_n		(HPS_DDR3_CK_N),
+.memory_mem_cke		(HPS_DDR3_CKE),
+.memory_mem_cs_n		(HPS_DDR3_CS_N),
+.memory_mem_ras_n		(HPS_DDR3_RAS_N),
+.memory_mem_cas_n		(HPS_DDR3_CAS_N),
+.memory_mem_we_n		(HPS_DDR3_WE_N),
+.memory_mem_reset_n	(HPS_DDR3_RESET_N),
+.memory_mem_dq			(HPS_DDR3_DQ),
+.memory_mem_dqs		(HPS_DDR3_DQS_P),
+.memory_mem_dqs_n		(HPS_DDR3_DQS_N),
+.memory_mem_odt		(HPS_DDR3_ODT),
+.memory_mem_dm			(HPS_DDR3_DM),
+.memory_oct_rzqin		(HPS_DDR3_RZQ),
+	  
+// Ethernet
+.hps_io_hps_io_gpio_inst_GPIO35	(HPS_ENET_INT_N),
+.hps_io_hps_io_emac1_inst_TX_CLK	(HPS_ENET_GTX_CLK),
+.hps_io_hps_io_emac1_inst_TXD0	(HPS_ENET_TX_DATA[0]),
+.hps_io_hps_io_emac1_inst_TXD1	(HPS_ENET_TX_DATA[1]),
+.hps_io_hps_io_emac1_inst_TXD2	(HPS_ENET_TX_DATA[2]),
+.hps_io_hps_io_emac1_inst_TXD3	(HPS_ENET_TX_DATA[3]),
+.hps_io_hps_io_emac1_inst_RXD0	(HPS_ENET_RX_DATA[0]),
+.hps_io_hps_io_emac1_inst_MDIO	(HPS_ENET_MDIO),
+.hps_io_hps_io_emac1_inst_MDC		(HPS_ENET_MDC),
+.hps_io_hps_io_emac1_inst_RX_CTL	(HPS_ENET_RX_DV),
+.hps_io_hps_io_emac1_inst_TX_CTL	(HPS_ENET_TX_EN),
+.hps_io_hps_io_emac1_inst_RX_CLK	(HPS_ENET_RX_CLK),
+.hps_io_hps_io_emac1_inst_RXD1	(HPS_ENET_RX_DATA[1]),
+.hps_io_hps_io_emac1_inst_RXD2	(HPS_ENET_RX_DATA[2]),
+.hps_io_hps_io_emac1_inst_RXD3	(HPS_ENET_RX_DATA[3]),
 
-	// I2C
-	.hps_io_hps_io_gpio_inst_GPIO48	(HPS_I2C_CONTROL),
-	.hps_io_hps_io_i2c0_inst_SDA		(HPS_I2C1_SDAT),
-	.hps_io_hps_io_i2c0_inst_SCL		(HPS_I2C1_SCLK),
-	.hps_io_hps_io_i2c1_inst_SDA		(HPS_I2C2_SDAT),
-	.hps_io_hps_io_i2c1_inst_SCL		(HPS_I2C2_SCLK),
+// Flash
+.hps_io_hps_io_qspi_inst_IO0	(HPS_FLASH_DATA[0]),
+.hps_io_hps_io_qspi_inst_IO1	(HPS_FLASH_DATA[1]),
+.hps_io_hps_io_qspi_inst_IO2	(HPS_FLASH_DATA[2]),
+.hps_io_hps_io_qspi_inst_IO3	(HPS_FLASH_DATA[3]),
+.hps_io_hps_io_qspi_inst_SS0	(HPS_FLASH_NCSO),
+.hps_io_hps_io_qspi_inst_CLK	(HPS_FLASH_DCLK),
 
-	// Pushbutton
-	.hps_io_hps_io_gpio_inst_GPIO54	(HPS_KEY),
+// Accelerometer
+.hps_io_hps_io_gpio_inst_GPIO61	(HPS_GSENSOR_INT),
 
-	// LED
-	.hps_io_hps_io_gpio_inst_GPIO53	(HPS_LED),
+//.adc_sclk                        (ADC_SCLK),
+//.adc_cs_n                        (ADC_CS_N),
+//.adc_dout                        (ADC_DOUT),
+//.adc_din                         (ADC_DIN),
 
-	// SD Card
-	.hps_io_hps_io_sdio_inst_CMD	(HPS_SD_CMD),
-	.hps_io_hps_io_sdio_inst_D0	(HPS_SD_DATA[0]),
-	.hps_io_hps_io_sdio_inst_D1	(HPS_SD_DATA[1]),
-	.hps_io_hps_io_sdio_inst_CLK	(HPS_SD_CLK),
-	.hps_io_hps_io_sdio_inst_D2	(HPS_SD_DATA[2]),
-	.hps_io_hps_io_sdio_inst_D3	(HPS_SD_DATA[3]),
+// General Purpose I/O
+//.hps_io_hps_io_gpio_inst_GPIO40	(HPS_LED),
+//.hps_io_hps_io_gpio_inst_GPIO41	(HPS_LED),
 
-	// SPI
-	.hps_io_hps_io_spim1_inst_CLK		(HPS_SPIM_CLK),
-	.hps_io_hps_io_spim1_inst_MOSI	(HPS_SPIM_MOSI),
-	.hps_io_hps_io_spim1_inst_MISO	(HPS_SPIM_MISO),
-	.hps_io_hps_io_spim1_inst_SS0		(HPS_SPIM_SS),
+// I2C
+.hps_io_hps_io_gpio_inst_GPIO48	(HPS_I2C_CONTROL),
+.hps_io_hps_io_i2c0_inst_SDA		(HPS_I2C1_SDAT),
+.hps_io_hps_io_i2c0_inst_SCL		(HPS_I2C1_SCLK),
+.hps_io_hps_io_i2c1_inst_SDA		(HPS_I2C2_SDAT),
+.hps_io_hps_io_i2c1_inst_SCL		(HPS_I2C2_SCLK),
 
-	// UART
-	.hps_io_hps_io_uart0_inst_RX	(HPS_UART_RX),
-	.hps_io_hps_io_uart0_inst_TX	(HPS_UART_TX),
+// Pushbutton
+.hps_io_hps_io_gpio_inst_GPIO54	(HPS_KEY),
 
-	// USB
-	.hps_io_hps_io_gpio_inst_GPIO09	(HPS_CONV_USB_N),
-	.hps_io_hps_io_usb1_inst_D0		(HPS_USB_DATA[0]),
-	.hps_io_hps_io_usb1_inst_D1		(HPS_USB_DATA[1]),
-	.hps_io_hps_io_usb1_inst_D2		(HPS_USB_DATA[2]),
-	.hps_io_hps_io_usb1_inst_D3		(HPS_USB_DATA[3]),
-	.hps_io_hps_io_usb1_inst_D4		(HPS_USB_DATA[4]),
-	.hps_io_hps_io_usb1_inst_D5		(HPS_USB_DATA[5]),
-	.hps_io_hps_io_usb1_inst_D6		(HPS_USB_DATA[6]),
-	.hps_io_hps_io_usb1_inst_D7		(HPS_USB_DATA[7]),
-	.hps_io_hps_io_usb1_inst_CLK		(HPS_USB_CLKOUT),
-	.hps_io_hps_io_usb1_inst_STP		(HPS_USB_STP),
-	.hps_io_hps_io_usb1_inst_DIR		(HPS_USB_DIR),
-	.hps_io_hps_io_usb1_inst_NXT		(HPS_USB_NXT));
+// LED
+.hps_io_hps_io_gpio_inst_GPIO53	(HPS_LED),
+
+// SD Card
+.hps_io_hps_io_sdio_inst_CMD	(HPS_SD_CMD),
+.hps_io_hps_io_sdio_inst_D0	(HPS_SD_DATA[0]),
+.hps_io_hps_io_sdio_inst_D1	(HPS_SD_DATA[1]),
+.hps_io_hps_io_sdio_inst_CLK	(HPS_SD_CLK),
+.hps_io_hps_io_sdio_inst_D2	(HPS_SD_DATA[2]),
+.hps_io_hps_io_sdio_inst_D3	(HPS_SD_DATA[3]),
+
+// SPI
+.hps_io_hps_io_spim1_inst_CLK		(HPS_SPIM_CLK),
+.hps_io_hps_io_spim1_inst_MOSI	(HPS_SPIM_MOSI),
+.hps_io_hps_io_spim1_inst_MISO	(HPS_SPIM_MISO),
+.hps_io_hps_io_spim1_inst_SS0		(HPS_SPIM_SS),
+
+// UART
+.hps_io_hps_io_uart0_inst_RX	(HPS_UART_RX),
+.hps_io_hps_io_uart0_inst_TX	(HPS_UART_TX),
+
+// USB
+.hps_io_hps_io_gpio_inst_GPIO09	(HPS_CONV_USB_N),
+.hps_io_hps_io_usb1_inst_D0		(HPS_USB_DATA[0]),
+.hps_io_hps_io_usb1_inst_D1		(HPS_USB_DATA[1]),
+.hps_io_hps_io_usb1_inst_D2		(HPS_USB_DATA[2]),
+.hps_io_hps_io_usb1_inst_D3		(HPS_USB_DATA[3]),
+.hps_io_hps_io_usb1_inst_D4		(HPS_USB_DATA[4]),
+.hps_io_hps_io_usb1_inst_D5		(HPS_USB_DATA[5]),
+.hps_io_hps_io_usb1_inst_D6		(HPS_USB_DATA[6]),
+.hps_io_hps_io_usb1_inst_D7		(HPS_USB_DATA[7]),
+.hps_io_hps_io_usb1_inst_CLK		(HPS_USB_CLKOUT),
+.hps_io_hps_io_usb1_inst_STP		(HPS_USB_STP),
+.hps_io_hps_io_usb1_inst_DIR		(HPS_USB_DIR),
+.hps_io_hps_io_usb1_inst_NXT		(HPS_USB_NXT));
 	
 	
 endmodule // end top level
