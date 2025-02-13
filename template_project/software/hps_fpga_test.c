@@ -1,3 +1,14 @@
+//-----------------------------------------------------
+// Design Name : HPS and FPGA communication
+// File Name   : hps_fpga_test.c
+// Coder       : Chaitali Sathe
+//-----------------------------------------------------
+
+//-----------------------------------------------------
+// Function    : Controls communication between HPS and FPGA
+//-----------------------------------------------------
+
+
 ///////////////////////////////////////
 #include <stdio.h>
 #include <string.h>
