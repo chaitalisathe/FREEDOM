@@ -70,7 +70,7 @@ Emulation of FPGA-based hardware redaction
 - [ ]  Install OpenFPGA tool(https://www.youtube.com/watch?v=F9sMRmDewM0)
 - [ ]  Install Quartus 
 - [ ]  Install EDS tool, EDS shell
-- [ ]  Boot Development board
+- [ ]  Setup Development board
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -78,7 +78,7 @@ Emulation of FPGA-based hardware redaction
 
 <!-- Usage -->
 ## Usage
-Download Template_Emulator from this project. This folder contains all scripts and files required to build an emulator.
+Download Template_Emulator from this project. This folder contains sample scripts and files required to build an emulator.
 
 <!-- Project Structure -->
 ### Project Structure
@@ -94,7 +94,7 @@ This repository has two main folders-
 	
 	├── README.md
  
-	├── asic_fpga_benchmark_top.v  				# wrapper file for emulator
+	├── asic_fpga_benchmark_top.v  					# wrapper file for emulator
 	
 
 	
@@ -110,17 +110,19 @@ This repository has two main folders-
 	
 	│   │   └── ... 
 	
-	│   ├── controller_ip.v 
+	│   ├── controller_ip.v 					# FSM controller
 	
-	│   ├── gpio.v 
+	│   ├── gpio.v 							# Library file from OpenFPGA
 	
-	│   ├── dff_user.v 
+	│   ├── dff_user.v 						# Library file from OpenFPGA
 	
-	│   ├── hex_decoder.v
+	│   ├── hex_decoder.v						# 7-seg display Hex decoder
 
-  	│   ├── benchmark.v
+  	│   ├── benchmark.v						# Original benchmark
 	
-	│   ├── control_parameters.sv
+ 	│   ├── benchmark_redacted.v					# Redacted portion
+	
+	│   ├── control_parameters.sv					# control parameters 
 	
 	│   ├── asic_fpga_benchmark.v					# integrated ASIC benchmark design with eFPGA fabic 
 	
@@ -144,11 +146,13 @@ This repository has two main folders-
 	
 	├── **computer_system**/                       			# Compiled QSYS project
 	
-	├── asic_fpga_benchmark.qpf
+	├── asic_fpga_benchmark_top.qpf
 	
-	├── asic_fpga_benchmark.qsf    					# Contains list of all files included in quartus project
+	├── asic_fpga_benchmark_top.qsf    				# Contains list of all files included in quartus project
 	
 	├── computer_system.qsys       					# A qsys project 
+ 
+ 	├── asic_fpga_benchmark_top.sdc      				
 	
 	└── ... 
 
@@ -157,50 +161,80 @@ This repository has two main folders-
 ### Tutorials
 1. Download **Template_Emulator** from this project.
 2. Rename **Template_Emulator** to your preffered *project_name*
+   
+3. Copy benchmark.v to this folder
+> Hardware redaction: 
+4. Redact a portion of design to benchmark_redacted.v file
 
-The emulator can be used in two different ways.
+Or 
 
-### Manual Emulator
-1. Copy benchmark.v to this folder
-2. Use hardware redaction technique and extract portion of design to benchmark_redacted.v file
-3. Generate eFPGA fabric using tutorial given in [OpenFPGA Tool](https://openfpga.readthedocs.io/en/master/tutorials/design_flow/verilog2verification/)
+*Run script ====redaction=== to generate benchmark_redacted.v file*
+```
+
+```
+> eFPGA fabric generation: 
+5. Generate eFPGA fabric using tutorial given in [OpenFPGA Tool](https://openfpga.readthedocs.io/en/master/tutorials/design_flow/verilog2verification/)
 > [!NOTE]
-> Update following in ${PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/config/task.conf file
-> openfpga_arch_file=${PATH:OPENFPGA_PATH}/openfpga_flow/openfpga_arch/k4_N4_40nm_cc_openfpga.xml
-> arch0=${PATH:OPENFPGA_PATH}/openfpga_flow/vpr_arch/k4_N4_tileable_40nm.xml
-> bench0 =${PATH:OPENFPGA_PATH}/openfpga_flow/benchmarks/benchmark_redacted.v
-
-4. Copy SRC folder from OpenFPGA tool ${PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/*your_folder*
-5. Integrate eFPGA fabric with ASIC portion of design.
-6. Generate a quartus project
-7. [*Optional*] Modify computer_system.qsys file and then compile else skip
-8. Update parameters1.sv file for number of input and output bits, size of bistream. 
-
-### Partially automated Emulator
-1. Copy benchmark.v to this folder
-> Hardware redaction 
-2. Run script ====redaction=== to generate benchmark_redacted.v file
-> eFPGA fabric generation 
-3. Generate eFPGA fabric using tutorial given in [OpenFPGA Tool](https://openfpga.readthedocs.io/en/master/tutorials/design_flow/verilog2verification/)
-> [!NOTE]
-> Update following in ${PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/config/task.conf file
-> openfpga_arch_file=${PATH:OPENFPGA_PATH}/openfpga_flow/openfpga_arch/k4_N4_40nm_cc_openfpga.xml
-> arch0=${PATH:OPENFPGA_PATH}/openfpga_flow/vpr_arch/k4_N4_tileable_40nm.xml
-> bench0 =${PATH:OPENFPGA_PATH}/openfpga_flow/benchmarks/benchmark_redacted.v
+> Update following in *task.conf* file stored at {PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/config/
+> 
+> 	*openfpga_arch_file* = ${PATH:OPENFPGA_PATH}/openfpga_flow/openfpga_arch/k4_N4_40nm_cc_openfpga.xml
+> 
+> 	*arch0* = ${PATH:OPENFPGA_PATH}/openfpga_flow/vpr_arch/k4_N4_tileable_40nm.xml
+>
+> 	*bench0* = ${PATH:OPENFPGA_PATH}/openfpga_flow/benchmarks/benchmark_redacted.v
 
 
-4. Copy SRC folder from OpenFPGA tool ${PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/*your_folder*
+6. Copy **SRC** folder from OpenFPGA tool at path ${PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/*your_folder*
+   to **hardware/** folder
+7. Copy **fabric_bitstream.bit** file to **software/** folder. Remove extra characters other than stream of bits.
 
-> Quartus project and FPGA programming
-5. Run ===generate quartus project === script to generate quartus project.
-6. [*Optional*] Modify computer_system.qsys file and then compile
-7. Modify hardware/parameters1.sv file for number of input and output bits, size of bistream  ==== include in script -======
-8. Run script ======= Compile/ run quartus ============ to generate asic_fpga_benchmark.sof file
-9. Program DE 10 standard FPGA SoC development board using JTAG
+> Quartus project and FPGA programming:
+8. Use Terasic system builder application to generate quartus project
+
+Or
+
+*Run ===generate quartus project === script to generate quartus project.*
+```
+
+```
+9. Modify computer_system.qsys file [*Optional*] and then compile.
+
+Or 
+
+*Open EDS shell and use following command to compile qsys and generate RTL*	
+```
+
+
+```
+10. Modify hardware/user_defined_parameters.sv file for number of input, output bitwidths, size of bitstream
+11. Compile quartus project to generate asic_fpga_benchmark_top.sof file
+
+Or 
+
+*Open EDS shell and use following commands to compile Quartus project*			
+```
+
+
+
+
+```
+9. Program DE-10 standard FPGA SoC development board using JTAG
 > HPS programming
-10. Modify hps_define.c for number of input and output bits, size of bistream ==== include in script -======
-11. Compile fpga_hps_benchmark.c using *make* command
-12. Transfer all files from software folder to HPS using scp.
+10. Modify hps_define.c for number of input and output bits, size of bitstream ==== include in script -======
+11. Compile hps_fpga_test.c
+```
+make clean
+make
+```
+12. Transfer following files from software folder to HPS using scp.
+
+```	
+fabric_bitstream_golden.bit	# Actual configuration bitstream
+test_vectors.txt		# test vectors
+golden_output.txt		# golden output for test vectors
+hps_fpga_test			# copiled c program
+```
+
 > Execution
 13. Execute c program on HPS 
 
