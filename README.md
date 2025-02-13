@@ -189,7 +189,7 @@ Or
 7. Copy **fabric_bitstream.bit** file to **software/** folder. Remove extra characters other than stream of bits.
 
 > Quartus project and FPGA programming:
-8. Use Terasic system builder application to generate quartus project
+8. Use Terasic System Builder to generate quartus project
 
 Or
 
