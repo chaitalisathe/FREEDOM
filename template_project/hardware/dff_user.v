@@ -1,9 +1,9 @@
 //-----------------------------------------------------
 // Design Name : D-type Flip-flops
-// File Name   : ff.v
-// Coder       : Xifan TANG
+// Coder  original     : Xifan TANG
+// File Name modified  : DFF_user.v
+// File is modified. DFF is replace by DFF_user
 //-----------------------------------------------------
-
 //-----------------------------------------------------
 // Function    : A native D-type flip-flop with single output
 //-----------------------------------------------------
