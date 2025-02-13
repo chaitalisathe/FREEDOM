@@ -1,0 +1,6 @@
+DATE = "16:10:19 February 12, 2025"
+QUARTUS_VERSION = "16.0.2"
+
+# Revisions
+
+PROJECT_REVISION = "asic_fpga_myadder_top"
