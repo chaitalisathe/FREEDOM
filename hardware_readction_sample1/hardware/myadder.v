@@ -3,13 +3,18 @@
 // This file has pragmas included for redaction process
 // comment out pragma for RTL simulation.
 //-----------------------------------------------------
-module myadder(
-  input [0:0] A, // Input a
-  input [0:0] B, // Input b
-  input [0:0] CI, // Input cin
-  output [0:0] CO, // Output carry
-  output [0:0] SUM // Output sum
+module myadder_redacted (
+    B,
+    CI,
+    A,
+    CO
 );
+  input  A; // Input a
+  input  B; // Input b
+  input  CI; // Input cin
+  output CO; // Output carry
+  output SUM; // Output sum
+
   assign SUM = A ^ B ^ CI;
   
 startpragma
