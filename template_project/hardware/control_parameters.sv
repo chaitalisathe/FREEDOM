@@ -1,4 +1,12 @@
-// parameters file
+//-----------------------------------------------------
+// Design Name : Parameters file
+// File Name   : control_parameters.sv
+// Coder       : Chaitali Sathe
+//-----------------------------------------------------
+
+//-----------------------------------------------------
+// Function    : Flags to communicate between HPS and FPGA
+//-----------------------------------------------------
 
 parameter  FLAGF2H_0 = 32'd992;   // Waiting for HPS to generate new bitstream, reset state FPGA is ready to copy bitstream
 parameter  FLAGF2H_1 = 32'd32;  // Copy bitstream from AXI bus
