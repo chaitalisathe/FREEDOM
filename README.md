@@ -83,8 +83,8 @@ Download Template_Emulator from this project. This folder contains all scripts a
 <!-- Project Structure -->
 ### Project Structure
 This repository has two main folders-
-1. Template_Emulator 
-2. Working benchmark- sample project
+1. Working benchmark- hardware_redaction_sample1 
+2. template_project
 
 > Folder structure and naming conventions for this project
 #### A typical top-level directory layout
