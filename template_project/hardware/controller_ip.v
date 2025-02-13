@@ -1,4 +1,12 @@
-// Created by Chaitali Sathe
+//-----------------------------------------------------
+// Design Name : Controller file
+// File Name   : controller_ip.v
+// Coder       : Chaitali Sathe
+//-----------------------------------------------------
+
+//-----------------------------------------------------
+// Function    : To control HPS and FPGA
+//-----------------------------------------------------
 module controller_ip( 
 
 		input 				clock,
