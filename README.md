@@ -162,9 +162,9 @@ This repository has two main folders-
 1. Download **Template_Emulator** from this project.
 2. Rename **Template_Emulator** to your preffered *project_name*
    
-3. Copy benchmark.v to this folder
+3. Copy *benchmark.v* to this folder
 > Hardware redaction: 
-4. Redact a portion of design to benchmark_redacted.v file
+4. Redact a portion of design to *benchmark_redacted.v* file
 
 Or 
 
@@ -186,7 +186,7 @@ Or
 
 6. Copy **SRC** folder from OpenFPGA tool at path ${PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/*your_folder*
    to **hardware/** folder
-7. Copy **fabric_bitstream.bit** file to **software/** folder. Remove extra characters other than stream of bits.
+7. Copy **fabric_bitstream.bit** file to **software/** folder. Remove extra characters other than bits of bitstream.
 
 > Quartus project and FPGA programming:
 8. Use Terasic System Builder to generate quartus project
@@ -206,8 +206,8 @@ Or
 
 
 ```
-10. Modify hardware/user_defined_parameters.sv file for number of input, output bitwidths, size of bitstream
-11. Compile quartus project to generate asic_fpga_benchmark_top.sof file
+10. Modify **hardware/user_defined_parameters.sv** file for number of input, output bitwidths, size of bitstream
+11. Compile quartus project to generate *asic_fpga_benchmark_top.sof* file
 
 Or 
 
@@ -220,8 +220,8 @@ Or
 ```
 9. Program DE-10 standard FPGA SoC development board using JTAG
 > HPS programming
-10. Modify hps_define.c for number of input and output bits, size of bitstream ==== include in script -======
-11. Compile hps_fpga_test.c
+10. Modify **software/hps_define.c** for number of input and output bits, size of bitstream 
+11. Compile *hps_fpga_test.c*
 ```
 make clean
 make
