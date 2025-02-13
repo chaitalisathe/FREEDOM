@@ -222,7 +222,7 @@ quartus_asm --read_settings_files=off --write_settings_files=off *asic_fpga_benc
 quartus_sta *asic_fpga_benchmark_top* -c *asic_fpga_benchmark_top*
 
 Tcl scripts:
-only if quartus_ commands fail during compilation-  
+only if quartus_* commands fail during compilation-  
 
 tclsh *path*/computer_system/synthesis/submodules/hps_sdram_p0_parameters.tcl
 tclsh *path*/computer_system/synthesis/submodules/hps_sdram_p0_pin_assignments.tcl
