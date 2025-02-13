@@ -203,7 +203,9 @@ Or
 
 *Open EDS shell and use following command to compile qsys and generate RTL*	
 ```
+qsys-generate *path*/computer_system.qsys --block-symbol-file --output-directory= *path*/computer_system --family="Cyclone V" --part=5CSXFC6D6F31C6
 
+qsys-generate *path*/computer_system.qsys --synthesis=VERILOG --output-directory= *path*/computer_system --family="Cyclone V" --part=5CSXFC6D6F31C6
 
 ```
 10. Modify **hardware/user_defined_parameters.sv** file for number of input, output bitwidths, size of bitstream
@@ -211,10 +213,19 @@ Or
 
 Or 
 
-*Open EDS shell and use following commands to compile Quartus project*			
+*Open EDS shell and use following commands to compile Quartus project*	
+
 ```
+quartus_map --read_settings_files=on --write_settings_files=off *asic_fpga_benchmark_top* -c *asic_fpga_benchmark_top*
+quartus_fit --read_settings_files=off --write_settings_files=off *asic_fpga_benchmark_top* -c *asic_fpga_benchmark_top*
+quartus_asm --read_settings_files=off --write_settings_files=off *asic_fpga_benchmark_top* -c *asic_fpga_benchmark_top*
+quartus_sta *asic_fpga_benchmark_top* -c *asic_fpga_benchmark_top*
 
+Tcl scripts:
+only if quartus_ commands fail during compilation-  
 
+tclsh *path*/computer_system/synthesis/submodules/hps_sdram_p0_parameters.tcl
+tclsh *path*/computer_system/synthesis/submodules/hps_sdram_p0_pin_assignments.tcl
 
 
 ```
