@@ -93,8 +93,10 @@ This repository has two main folders-
 	project-name/
 	
 	├── README.md
+ 
+	├── asic_fpga_benchmark_top.v  				# wrapper file for emulator
 	
-	├── benchmark.v
+
 	
 	├── **hardware**/  
 	
@@ -115,10 +117,10 @@ This repository has two main folders-
 	│   ├── dff_user.v 
 	
 	│   ├── hex_decoder.v
+
+  	│   ├── benchmark.v
 	
-	│   ├── parameters1.sv
-	
-	│   ├── asic_fpga_benchmark_top.v  				# wrapper file for emulator
+	│   ├── control_parameters.sv
 	
 	│   ├── asic_fpga_benchmark.v					# integrated ASIC benchmark design with eFPGA fabic 
 	
