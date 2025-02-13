@@ -67,7 +67,7 @@ Emulation of FPGA-based hardware redaction
 <!-- Setup and Installation -->
 ### Setup and Installation
 <!--Installation tutorial for above tools and software can be found at -->
-- [ ]  Install OpenFPGA tool(https://www.youtube.com/watch?v=F9sMRmDewM0)
+- [ ]  Install [OpenFPGA tool](https://www.youtube.com/watch?v=F9sMRmDewM0)
 - [ ]  Install Quartus 
 - [ ]  Install EDS tool, EDS shell
 - [ ]  Setup Development board
