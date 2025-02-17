@@ -201,10 +201,10 @@ Or
 
 Or 
 
-*Open EDS shell and use following command to compile qsys and generate RTL*	
-```
+*Open EDS shell and use following command to compile qsys and generate RTL*
+Goto main projectory using cd command
 cd "go to project directory"
-
+```
 qsys-generate computer_system.qsys --block-symbol-file --output-directory= /computer_system --family="Cyclone V" --part=5CSXFC6D6F31C6
 
 qsys-generate computer_system.qsys --synthesis=VERILOG --output-directory= /computer_system --family="Cyclone V" --part=5CSXFC6D6F31C6
