@@ -203,9 +203,11 @@ Or
 
 *Open EDS shell and use following command to compile qsys and generate RTL*	
 ```
-qsys-generate *path*/computer_system.qsys --block-symbol-file --output-directory= *path*/computer_system --family="Cyclone V" --part=5CSXFC6D6F31C6
+cd "go to project directory"
 
-qsys-generate *path*/computer_system.qsys --synthesis=VERILOG --output-directory= *path*/computer_system --family="Cyclone V" --part=5CSXFC6D6F31C6
+qsys-generate computer_system.qsys --block-symbol-file --output-directory= /computer_system --family="Cyclone V" --part=5CSXFC6D6F31C6
+
+qsys-generate computer_system.qsys --synthesis=VERILOG --output-directory= /computer_system --family="Cyclone V" --part=5CSXFC6D6F31C6
 
 ```
 10. Modify **hardware/user_defined_parameters.sv** file for number of input, output bitwidths, size of bitstream
