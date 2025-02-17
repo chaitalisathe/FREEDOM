@@ -81,7 +81,7 @@ scp hps_fpga_test root@192.168.x.y:/home/root/sample_project
 > Execution
 13. Execute c program on DE10- Standard Board 
 
-Go to sample_project flolder on linux
+Go to sample_project folder on linux
 
 ```
 cd sample_project
