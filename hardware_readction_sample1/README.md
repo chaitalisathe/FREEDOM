@@ -73,7 +73,7 @@ Run following commands to get IP address of Linux
 udhcpc
 ifconfig
 ```
-Sample commamnd to transfer file from project directory to sample project directory on Linux
+Sample command to transfer file from project directory to sample project directory on Linux
 
 ```
 scp hps_fpga_test root@192.168.x.y:/home/root/sample_project
