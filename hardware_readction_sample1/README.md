@@ -1,4 +1,4 @@
-Tutorial to run sample project
+## Tutorial to run sample project
 
 1. Download **hardware_redaction_sample1** from this project.
 
