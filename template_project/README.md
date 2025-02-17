@@ -13,3 +13,5 @@ Points to remember:
   endmodule
   
   ```
+- Do not include SRC/sub_module/user_defined_template.v file created from OpenFPGA to our project
+- Check instantiation for D flip flop inside memories.v. It should be DFF_user instead of DFF.
