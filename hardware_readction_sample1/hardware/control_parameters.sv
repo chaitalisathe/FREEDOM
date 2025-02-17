@@ -1,9 +1,4 @@
 // parameters file
-/* parameter BITSTREAM_LENGTH = 'd7736;
-parameter LATENCY = 1;
-parameter INPUT_LENGTH = 'd80 ;
-parameter OUTPUT_LENGTH = 'd24 ;
- */
  
 parameter  FLAGF2H_0 = 32'd992;   // Waiting for HPS to generate new bitstream, reset state FPGA is ready to copy bitstream
 parameter  FLAGF2H_1 = 32'd32;  // Copy bitstream from AXI bus
