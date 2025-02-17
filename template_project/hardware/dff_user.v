@@ -1,6 +1,5 @@
 //-----------------------------------------------------
 // Design Name : D-type Flip-flops
-// Coder  original     : Xifan TANG
 // File Name modified  : DFF_user.v
 // File is modified. DFF is replaced by DFF_user
 //-----------------------------------------------------
