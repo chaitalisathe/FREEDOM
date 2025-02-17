@@ -1,7 +1,7 @@
 //-----------------------------------------------------
 // Design Name : General Purpose I/Os
-// File Name   : gpio.v
-// Coder       : Xifan TANG
+// File Name   : gpio.v generated from OpenFPGA
+
 //-----------------------------------------------------
 
 //-----------------------------------------------------
