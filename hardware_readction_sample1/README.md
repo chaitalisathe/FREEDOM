@@ -22,7 +22,7 @@ qsys-generate computer_system.qsys --block-symbol-file --output-directory=/compu
 qsys-generate computer_system.qsys --synthesis=VERILOG --output-directory=/computer_system --family="Cyclone V" --part=5CSXFC6D6F31C6
 
 ```
-11. Compile quartus project to generate programming bitstream file *asic_fpga_myadder_top.sof* 
+3. Compile quartus project to generate programming bitstream file *asic_fpga_myadder_top.sof* 
 
 Or 
 
@@ -44,12 +44,11 @@ only if quartus_* commands fail during compilation-
 tclsh /computer_system/synthesis/submodules/hps_sdram_p0_parameters.tcl
 tclsh /computer_system/synthesis/submodules/hps_sdram_p0_pin_assignments.tcl
 ```
-9. Program DE-10 standard FPGA SoC development board using JTAG
+3. Program DE-10 standard FPGA SoC development board using JTAG
     
 > HPS programming
 
-10. Modify **software/hps_define.c** for number of input and output bits, size of bitstream 
-11. Compile *hps_fpga_test.c*
+4. Compile *hps_fpga_test.c*
     
 ```
 cd software
