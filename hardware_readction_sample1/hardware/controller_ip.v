@@ -1,5 +1,4 @@
 // This is a state machine
-//created by : Chaitali Sathe
 
 module controller_ip( 
 
