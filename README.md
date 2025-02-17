@@ -218,16 +218,19 @@ Or
 *Open EDS shell and use following commands to compile Quartus project*	
 
 ```
-quartus_map --read_settings_files=on --write_settings_files=off *asic_fpga_benchmark_top* -c *asic_fpga_benchmark_top*
-quartus_fit --read_settings_files=off --write_settings_files=off *asic_fpga_benchmark_top* -c *asic_fpga_benchmark_top*
-quartus_asm --read_settings_files=off --write_settings_files=off *asic_fpga_benchmark_top* -c *asic_fpga_benchmark_top*
-quartus_sta *asic_fpga_benchmark_top* -c *asic_fpga_benchmark_top*
+quartus_map --read_settings_files=on --write_settings_files=off asic_fpga_${benchmark}_top -c asic_fpga_${benchmark}_top
+quartus_fit --read_settings_files=off --write_settings_files=off asic_fpga_${benchmark}_top -c asic_fpga_${benchmark}_top
+quartus_asm --read_settings_files=off --write_settings_files=off asic_fpga_${benchmark}_top -c asic_fpga_${benchmark}_top
+quartus_sta asic_fpga_${benchmark}_top -c asic_fpga_${benchmark}_top
+
+```
 
 Tcl scripts:
 only if quartus_* commands fail during compilation-  
 
-tclsh *path*/computer_system/synthesis/submodules/hps_sdram_p0_parameters.tcl
-tclsh *path*/computer_system/synthesis/submodules/hps_sdram_p0_pin_assignments.tcl
+```
+tclsh /computer_system/synthesis/submodules/hps_sdram_p0_parameters.tcl
+tclsh /computer_system/synthesis/submodules/hps_sdram_p0_pin_assignments.tcl
 
 
 ```
