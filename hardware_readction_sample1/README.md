@@ -1,52 +1,10 @@
- 1. Download **Template_Emulator** from this project.
-2. Rename **Template_Emulator** to your preffered *project_name*
-   
-3. Copy *${benchmark}.v* to this folder
-> Hardware redaction: 
-4. Redact a portion of design to *${benchmark}_redacted.v* file
+Tutorial to run sample project
 
-Or 
-
-*Run script ====redaction=== to generate benchmark_redacted.v file*
-```
-
-```
-> eFPGA fabric generation:
-
-5. Generate eFPGA fabric using tutorial given in [OpenFPGA Tool](https://openfpga.readthedocs.io/en/master/tutorials/design_flow/verilog2verification/)
-> [!NOTE]
-> Update following in *task.conf* file stored at {PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/config/
-> 
-> 	*openfpga_arch_file* = ${PATH:OPENFPGA_PATH}/openfpga_flow/openfpga_arch/k4_N4_40nm_cc_openfpga.xml
-> 
-> 	*arch0* = ${PATH:OPENFPGA_PATH}/openfpga_flow/vpr_arch/k4_N4_tileable_40nm.xml
->
-> 	*bench0* = ${PATH:OPENFPGA_PATH}/openfpga_flow/benchmarks/benchmark_redacted.v
-
-Run following command to generate eFPGA fabric
-```
-python3 openfpga_flow/scripts/run_fpga_task.py basic_tests/full_testbench/configuration_chain
- 
-```
-
-
-6. Copy **SRC** folder from OpenFPGA tool at path ${PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/*your_folder*
-   to **hardware/** folder
-7. Copy **fabric_bitstream.bit** file from OpenFPGA tool at path
-   ${PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/*your_folder* to **software/** folder.
-
-Remove extra characters other than bits of bitstream.
+1. Download **hardware_redaction_sample1** from this project.
 
 > Quartus project and FPGA programming:
-8. Use Terasic System Builder to generate quartus project
 
-Or
-
-*Run ===generate quartus project === script to generate quartus project.*
-```
-
-```
-9. Open Platform Designer in Quartus project, modify computer_system.qsys file [*Optional*] and then generate HDL.
+2. Open Platform Designer in Quartus project, modify computer_system.qsys file [*Optional*] and then generate HDL.
 
 Or 
 
@@ -64,20 +22,18 @@ qsys-generate computer_system.qsys --block-symbol-file --output-directory=/compu
 qsys-generate computer_system.qsys --synthesis=VERILOG --output-directory=/computer_system --family="Cyclone V" --part=5CSXFC6D6F31C6
 
 ```
-10. Modify **hardware/user_defined_parameters.sv** file for number of input, output bitwidths, size of bitstream
-11. Compile quartus project to generate programming bitstream file *asic_fpga_${benchmark}_top.sof* 
+11. Compile quartus project to generate programming bitstream file *asic_fpga_myadder_top.sof* 
 
 Or 
 
 *Open EDS shell and use following commands to compile Quartus project*
-
-Edit and use proper project name in following commands --asic_fpga_${benchmark}_top--
+cd "go to project directory"
 
 ```
-quartus_map --read_settings_files=on --write_settings_files=off asic_fpga_${benchmark}_top -c asic_fpga_${benchmark}_top
-quartus_fit --read_settings_files=off --write_settings_files=off asic_fpga_${benchmark}_top -c asic_fpga_${benchmark}_top
-quartus_asm --read_settings_files=off --write_settings_files=off asic_fpga_${benchmark}_top -c asic_fpga_${benchmark}_top
-quartus_sta asic_fpga_${benchmark}_top -c asic_fpga_${benchmark}_top
+quartus_map --read_settings_files=on --write_settings_files=off asic_fpga_myadder_top -c asic_fpga_myadder_top
+quartus_fit --read_settings_files=off --write_settings_files=off asic_fpga_myadder_top -c asic_fpga_myadder_top
+quartus_asm --read_settings_files=off --write_settings_files=off asic_fpga_myadder_top -c asic_fpga_myadder_top
+quartus_sta asic_fpga_myadder_top -c asic_fpga_myadder_top
 
 ```
 
@@ -120,7 +76,7 @@ ifconfig
 Sample commamnd to transfer file from project directory to sample project directory on Linux
 
 ```
-scp hps_fpga_test root@192.168.2.6:/home/root/sample_project
+scp hps_fpga_test root@192.168.x.y:/home/root/sample_project
 ```
 
 > Execution
