@@ -1,7 +1,5 @@
 //-----------------------------------------------------
-// Design Name : D-type Flip-flops
-// File Name   : ff.v
-// Coder       : Xifan TANG
+// Design Name : D-type Flip-flops generated from OpenFPGA
 //-----------------------------------------------------
 
 //-----------------------------------------------------
