@@ -52,11 +52,14 @@ Emulation of FPGA-based hardware redaction
 - Simulation tool(optional) - [ModelSim-Intel FPGA Edition (includes Starter Edition)](https://www.intel.com/content/www/us/en/software-kit/750666/modelsim-intel-fpgas-standard-edition-software-version-20-1-1.html#:~:text=ModelSim%2DIntel%C2%AE%20FPGA%20Edition%20(includes%20Starter%20Edition))
 - python 3.9 or above
 - putty
+- Win32 Disk Imager 
 
 <!-- Hardwares -->
 #### Hardwares 
 - [Terasic DE10 Standard SoC board](https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&No=1081)
-- Network wireless router
+- Network router
+- Micros SD Card, at 4GB minimum
+- Micros SD Card Card Reader
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
