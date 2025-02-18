@@ -97,6 +97,8 @@ This repository has two main folders-
 	├── asic_fpga_benchmark_top.v  					# wrapper file for emulator
 	
 	├── user_defined_parameters.sv 
+
+	├── benchmark.v						# Original benchmark
 	
 	├── **hardware**/  
 	
@@ -118,9 +120,7 @@ This repository has two main folders-
 	
 	│   ├── hex_decoder.v						# 7-seg display Hex decoder
 
-  	│   ├── benchmark.v						# Original benchmark
-	
- 	│   ├── benchmark_redacted.v					# Redacted portion
+  	│   ├── benchmark_redacted.v					# Redacted portion
 	
 	│   ├── control_parameters.sv					# control parameters 
 	
@@ -152,7 +152,15 @@ This repository has two main folders-
 	
 	├── computer_system.qsys       					# A qsys project 
  
- 	├── asic_fpga_benchmark_top.sdc      				
+ 	├── asic_fpga_benchmark_top.sdc  
+
+  	├── general_redactor.py  					# Script to partition original benchmark into two portions
+
+   	├── general_wrapper.py  					# Script to create general wrapper for emulator
+
+   	├── project_gen.py						# Script to create Quartus project and include necessary design files
+
+        ├── stitcher.py  						# To integrate ASIC portion and eFPGA fabric together
 	
 	└── ... 
 
