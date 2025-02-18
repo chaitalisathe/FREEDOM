@@ -161,6 +161,8 @@ make
 > If input is a 10 bit vector, it is stored in LSB -> MSB order inside test_vectors.txt
 >
 > Similar case with output.txt file. Output is read from left to right as LSB -> MSB
+>
+> If benchmark has multiple input vectors, please make sure their connections are proper in asic_fpga_${benchmark}_top.v file. Modify them if needed. 
 
 
 
