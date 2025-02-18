@@ -43,8 +43,8 @@ Points to remember:
 > - Check module declaration and instantiation for OR2 in luts.v and inv_buf_passgate.v file. It should be OR2_user instead of OR2.
 
 ## Tutorial 
-1. Download **Template_project** from this project.
-2. Rename **Template_project** to your preffered ***project_name***
+1. Download **template_project** from this project.
+2. Rename **template_project** to your preffered ***project_name***
    
 3. Copy ***${benchmark}.v*** to this folder
    
@@ -52,7 +52,7 @@ Points to remember:
 
 4. Redact a portion of design to ***${benchmark}_redacted.v*** file
 
-Or 
+**Or** 
 
 *Run script general_redactor.py to generate benchmark_redacted.v file*
 ```
@@ -105,10 +105,46 @@ python3 openfpga_flow/scripts/run_fpga_task.py basic_tests/full_testbench/config
 > Integrate ASIC portion and eFPGA fabric
 > 
 8. Instantiate eFPGA fabric module in ASIC portion of original benchmark to create file asic_fpga_${benchmark}.v
+```
+for example-
 
-Or 
+module asic_fpga_myadder( A, B, CI, CO, SUM, f_op_clk, f_prog_clk, f_reset, f_ccff_head, f_ccff_tail);
+input  	  A; 
+input 	  B; 
+input  	  CI; 
+output 	  CO; 
+output 	  SUM;
+input     f_prog_clk;
+input     f_reset;
+input     f_ccff_head;
+output    f_ccff_tail;
+input 	  f_op_clk;
 
-Run stitcher.py script
+assign SUM = A ^ B ^ CI;
+ 
+//fpga fpga_inst (.B(B), .CI(CI), .A(A), .CO(CO));
+wire [0:31] gfpga_pad_GPIO_PAD;
+
+// eFPGA fabric module instantiation 
+fpga_top FPGA_DUT (.prog_clk(f_prog_clk),
+.set(1'b0),
+.reset(f_reset),
+.clk(f_op_clk),
+.gfpga_pad_GPIO_PAD(gfpga_pad_GPIO_PAD[0:31]),
+.ccff_head(f_ccff_head),
+.ccff_tail(f_ccff_tail));
+
+assign gfpga_pad_GPIO_PAD[1] = (f_reset) ? 1'bz  : B;
+assign gfpga_pad_GPIO_PAD[4] = (f_reset) ? 1'bz  : CI;
+assign gfpga_pad_GPIO_PAD[30] = (f_reset) ? 1'bz : A;
+assign CO = gfpga_pad_GPIO_PAD[18];
+  
+endmodule
+```
+
+**Or** 
+
+Run stitcher.py script. {*Update the script according to port declaration for other eFPGA fabrics than OpenFPGA k4n4 fabric*}
 
 ```
 python3 stitcher.py
@@ -117,7 +153,7 @@ python3 stitcher.py
 > Quartus project and FPGA programming:
 8. Use Terasic System Builder to generate quartus project
 
-Or
+**Or**
 
 *Run following scripts to generate quartus project and generate the wrapper file*
 ```
@@ -127,7 +163,7 @@ python3 generate_wrapper.py
 
 10. Open Platform Designer in Quartus project, modify computer_system.qsys file [*Optional*] and then generate HDL.
 
-Or 
+**Or** 
 
 *Open EDS shell and use following command to compile qsys and generate HDL*
 
@@ -150,7 +186,7 @@ qsys-generate computer_system.qsys --synthesis=VERILOG --output-directory=/compu
 
 12. Compile quartus project to generate programming bitstream file *asic_fpga_${benchmark}_top.sof* 
 
-Or 
+**Or** 
 
 *Open EDS shell and use following commands to compile Quartus project*
 
