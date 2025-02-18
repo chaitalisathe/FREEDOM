@@ -323,16 +323,18 @@ int readTV(void)
 			test_vectors[j][i] = ch;
 			//printf("value of current test input bit : %c \n", test_vectors[j][i]);
 			i++;
+			
+				if (i == test_vec_size)
+				{
+					//printf("test vector copying : %d \n", j);
+					j++;
+					i= 0;
+				}
+			
+			
+			
 			}
-		else 
-		{
-			if (ch == '\n')
-			{
-				//printf("test vector copying : %d \n", j);
-				j++;
-				i= 0;
-			}
-		}
+		
 	} 
 	 
 	fclose(file1);
@@ -344,7 +346,7 @@ int readTV(void)
 			printf("Error in opening golden output file \n");
 			return 1;
 		}
-	 while (!feof(file2))
+	while (j < (num_test_vec))
 	{
 
 		out_ch = fgetc(file2);
@@ -358,32 +360,19 @@ int readTV(void)
 			out_vectors[j][i] = out_ch;
 			//printf("value of current output bit : %c \n", out_vectors[j][i]);
 			i++;
+				if (i == test_out_size)
+				{
+					//printf("test output copying : %d \n", j);
+					j++;
+					i= 0;
+				}	
+			
+			
 			}
-		else 
-		{
-			if (out_ch == '\n')
-			{
-				//printf("column copying : %d \n", j);
-				j++;
-				i= 0;
-			}
-		}
+		
 	}  
 	fclose(file2);  
 	
-/*
-	char charArray[] = "Hello, world!"; 
-
-    // Method 1: Using string.h library
-    char *string1 = strdup(charArray); 
-
-    // Method 2: Manual copy
-    char string2[strlen(charArray) + 1];
-    strcpy(string2, charArray);
-
-    printf("String 1: %s\n", string1);
-    printf("String 2: %s\n", string2);
-    printf("String 3: %s\n", charArray); */
 	printf("leaving test vectors:\n" );
 	return 0;	
 }
@@ -404,7 +393,7 @@ bool compare_results(void)
 	int i = 0;
 	char out_current[NUM_TEST_VEC][TEST_OUT_SIZE];
 	printf("Comparing current output with golden output:\n" );
-	while (!feof(file2) ) 
+	while (j < (num_test_vec))
 		{
 			out_ch = fgetc(file2);
 			//printf("value of current out_ch : %c\n", out_ch);
@@ -416,34 +405,18 @@ bool compare_results(void)
 			out_current[j][i] = out_ch;
 			//printf("value of current output bit : %c\n", out_current[j][i]);
 			i++;
+			
+			if (i == test_out_size)
+				{
+					//printf("test output copying : %d \n", j);
+					j++;
+					i= 0;
+				}	
+				 
+			
 			}
-		else 
-		{
-			if (out_ch == '\n')
-			{
-				//printf("column copying : %d \n", j);
-				j++;
-				i= 0;
-			}
-		}	
-			
-			
-			
-			
-			
-			
-			
-		/* 	fgets(buffer, sizeof(buffer), file1);
-				
-				
-					
-					printf("Read output: %s \n", buffer);	
-					for(i= 0 ; i< sizeof(buffer) ; i++ )
-					{	
-						if (buffer[i] == "0" | buffer[i] == "1")
-							out_current[j][i] = buffer[i];
-					}
-					j++; */
+		
+
 				
 		}
 		
@@ -483,7 +456,7 @@ int main(void)
 	int output_iter = test_out_size/ bus_size;
 	char sub[bus_size]; 
 	//char test_io[bus_size];
-	int total_iterations = 1;// c = size;
+	int total_iterations = MAX_BITSTREAM_INTERATIONS;
 	bool result = true;
     char* bitstream_ptr = malloc((total_iterations * size) * sizeof(char));		
 	char ch_0 = '0';
@@ -496,6 +469,8 @@ int main(void)
 	memory_map(); // Done only once
 	int bitstream_iteration = 0;
 	bool found_match = false;
+	int timeout_max = 1000; // Ends program if matching bitstream is re-generated timeout times.
+	int timeout = 0;
 	int copy = 0;
 	readTV();
 	unsigned int p = 0;
@@ -506,8 +481,8 @@ int main(void)
 		// state 0 - Generate bitstream
 		hamming_distance = 0;
 		generate_bitstream(); // Fuzzer generates the bitstream and stores into a fabric_bitstream.bit file
-		read_golden_bitstream(); // fabric_bistream_golden.bit 
-		//read_bitstream(); // fabric_bitstream_sample.bit
+		//read_golden_bitstream(); // fabric_bistream_golden.bit 
+		read_bitstream(); // fabric_bitstream_sample.bit
 		//printf("out of read loop \n");
 		//printf("calling check_bitstream function");
 		for( i = 0; i < bitstream_iteration; i++) 
@@ -529,21 +504,26 @@ int main(void)
 			if (match == size)	
 			{
 				found_match = true;
+				timeout++;
 				printf("foundmatch , restarting while loop \n");
 				break;
 			}
 			else
+			{
 			found_match = false;
+			timeout = 0;
+			}
 				
 		}
 		
 		if (found_match == false)
 		// store bitstream in data
 		{	
+		
 			for ( j = 0; j < size; j++)
 				 bitstream_ptr[bitstream_iteration * size + j] = bitstream[j];
 			
-			printf("store bitstream in data \n");
+			//printf("store bitstream in data \n");
 			//bitstream_iteration ++;
 		
 		
@@ -707,8 +687,8 @@ int main(void)
 					
 						*(axi_pio_ptr) =  bits; // send 32 bits of bitstream LSB [0+i*32 : 0+i*32+31]
 						*(lw_pio_ptr)  =  FLAGH2F_5; // send flag for sending 32 bits of bitstream
-						printf("Flag H5 is raised by HPS- Sending 32 bits of an input \n")	;
-						printf("Waiting for FLAG F5 from FPGA- FPGA neeeds to copy 32bits of input on register \n");
+						//printf("Flag H5 is raised by HPS- Sending 32 bits of an input \n")	;
+						//printf("Waiting for FLAG F5 from FPGA- FPGA neeeds to copy 32bits of input on register \n");
 						while(1)	// wait until FPGA is ready to receive next bitstream bits
 							{
 								if (*(lw_pio_read_ptr) == FLAGF2H_5)
@@ -1056,7 +1036,7 @@ int main(void)
 		printf("Leaving comparison, result is FALSE \n");
 		
 		
-/* 		printf("Leaving comparison \n");
+		//printf("Leaving comparison \n");
 		char filename[50];
 		if (result == true)
 			{
@@ -1084,8 +1064,16 @@ int main(void)
 			}
 	
 	
-		printf("Hamming distance for current bitstream = %d \n", hamming_distance); */
+		printf("Hamming distance for current bitstream = %d \n", hamming_distance);
 		}
+		
+		if (timeout >= timeout_max)
+		{
+			printf("Repeatative bitstream generated ");
+			break;
+		}
+		
+		
 		
 		}
 	
