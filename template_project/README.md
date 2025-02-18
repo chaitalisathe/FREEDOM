@@ -12,7 +12,10 @@ Points to remember:
 
 
   endmodule
-  
+
+- pragmas cannot be between always blocks
+- all always blocks should have begin and end
+ 
   ```
 > [!NOTE]
 > To avoid conflicts between openFPGA fabric and Cyclone V libraries check following:-
