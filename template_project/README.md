@@ -208,7 +208,9 @@ tclsh /computer_system/synthesis/submodules/hps_sdram_p0_parameters.tcl
 tclsh /computer_system/synthesis/submodules/hps_sdram_p0_pin_assignments.tcl
 ```
 13. Program DE-10 standard FPGA SoC development board using JTAG
-    
+> [!NOTE]
+> Warm reset HPS.
+
 > HPS programming
 
 14. Modify **software/hps_define.c** for number of input and output bits, size of bitstream 
