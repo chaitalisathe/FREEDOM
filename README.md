@@ -70,7 +70,7 @@ Emulation of FPGA-based hardware redaction
 - [ ]  Install [OpenFPGA tool](https://www.youtube.com/watch?v=F9sMRmDewM0)
 - [ ]  Install Quartus 
 - [ ]  Install EDS tool, EDS shell
-- [ ]  Setup DE10 board, Install Linux on the board
+- [ ]  Setup DE10 board [Install Linux on the board](https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&CategoryNo=205&No=1081&PartNo=4#contents)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
