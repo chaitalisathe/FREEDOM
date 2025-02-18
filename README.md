@@ -98,7 +98,7 @@ This repository has two main folders-
 	
 	├── user_defined_parameters.sv 
 
-	├── benchmark.v						# Original benchmark
+	├── benchmark.v							# Original benchmark
 	
 	├── **hardware**/  
 	
