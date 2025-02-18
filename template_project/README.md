@@ -209,7 +209,7 @@ tclsh /computer_system/synthesis/submodules/hps_sdram_p0_pin_assignments.tcl
 ```
 13. Program DE-10 standard FPGA SoC development board using JTAG
 > [!NOTE]
-> Warm reset HPS.
+> After configuring the FPGA on board, press warm reset HPS button.
 
 > HPS programming
 
