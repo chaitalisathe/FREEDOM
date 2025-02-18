@@ -92,9 +92,12 @@ python3 openfpga_flow/scripts/run_fpga_task.py basic_tests/full_testbench/config
 > OpenFPGA verification using iverilog might fail due to discordance for input-output port naming conventions. You can find solution for that on OpenFPGA website.
 
 6. Copy **SRC** folder from OpenFPGA tool at path ${PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/*your_folder*
+
    to **hardware/** folder
-7. Copy **fabric_bitstream.bit** file from OpenFPGA tool at path
-   ${PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/*your_folder* to **software/** folder.
+8. Copy **fabric_bitstream.bit** file from OpenFPGA tool at path
+   ${PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/*your_folder*
+
+   to **software/** folder.
 
 > [!NOTE]
 > Remove extra characters other than bits of bitstream. Rename original bitstream to fabric_bitstream_golden.bit
@@ -197,7 +200,24 @@ make
 >
 > Similar case with output.txt file. Output is read from left to right as LSB -> MSB
 >
-> If benchmark has multiple input-output vectors, please make sure their connections are proper in asic_fpga_${benchmark}_top.v file. Modify them if needed. 
+> If benchmark has multiple input-output vectors, please make sure their connections are proper in asic_fpga_${benchmark}_top.v file. Modify them if needed.
+
+```
+// ASIC + FPGA design
+asic_fpga_myadder EMULATOR_DUT ( 
+.f_op_clk (fpga_op_clk) ,
+.f_prog_clk(fpga_prog_clk), 
+.f_reset(fpga_reset) ,
+.f_ccff_head(ccff_head),
+.f_ccff_tail(ccff_tail),
+.A(shared_input[0]), // LSB of input stream 
+.B(shared_input[1]),
+.CI(shared_input[2]), // MSB of input stream
+.SUM(design_output[0]), // LSB of output stream
+.CO(design_output[1]) // MSB of output stream
+);		
+	
+```
 
 
 
