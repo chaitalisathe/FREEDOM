@@ -160,7 +160,7 @@ This repository has two main folders-
 
    	├── project_gen.py						# Script to create Quartus project and include necessary design files
 
-        ├── stitcher.py  						# To integrate ASIC portion and eFPGA fabric together
+	├── stitcher.py  						# To integrate ASIC portion and eFPGA fabric together
 	
 	└── ... 
 
