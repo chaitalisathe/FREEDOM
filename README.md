@@ -249,12 +249,12 @@ only if quartus_* commands fail during compilation-
 tclsh /computer_system/synthesis/submodules/hps_sdram_p0_parameters.tcl
 tclsh /computer_system/synthesis/submodules/hps_sdram_p0_pin_assignments.tcl
 ```
-9. Program DE-10 standard FPGA SoC development board using JTAG
+12. Program DE-10 standard FPGA SoC development board using JTAG
     
 > HPS programming
 
-10. Modify **software/hps_define.c** for number of input and output bits, size of bitstream 
-11. Compile *hps_fpga_test.c*
+13. Modify **software/hps_define.c** for number of input and output bits, size of bitstream 
+14. Compile *hps_fpga_test.c*
     
 ```
 cd software
@@ -265,7 +265,7 @@ make
 > Install Linux on the DE10- Standard Board from the "DE10 Standard_Getting_Started_Guide.pdf" to run Linux on DE1 0_Standard board provided by Terasic
 
 
-12. Transfer following files from software folder to HPS using scp command.
+15. Transfer following files from software folder to HPS using scp command.
 
 	
 - fabric_bitstream_golden.bit	# Actual configuration bitstream
@@ -285,7 +285,7 @@ scp hps_fpga_test root@192.168.2.6:/home/root/sample_project
 ```
 
 > Execution
-13. Execute c program on DE10- Standard Board 
+16. Execute c program on DE10- Standard Board 
 
 Go to sample_project flolder on linux
 
