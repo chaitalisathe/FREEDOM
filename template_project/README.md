@@ -73,7 +73,8 @@ python3 openfpga_flow/scripts/run_fpga_task.py basic_tests/full_testbench/config
 7. Copy **fabric_bitstream.bit** file from OpenFPGA tool at path
    ${PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/*your_folder* to **software/** folder.
 
-Remove extra characters other than bits of bitstream.
+> [!NOTE]
+> Remove extra characters other than bits of bitstream. Rename original bitstream to fabric_bitstream_golden.bit
 
 > Quartus project and FPGA programming:
 8. Use Terasic System Builder to generate quartus project.
