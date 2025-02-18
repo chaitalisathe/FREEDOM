@@ -48,8 +48,8 @@ Emulation of FPGA-based hardware redaction
 <!-- Tools and softwares -->
 #### Tools and softwares
 - [OpenFPGA tool](https://openfpga.readthedocs.io/en/master/)
-- FPGA Development Tool - [Quartus Prime Lite](https://www.intel.com/content/www/us/en/software-kit/825278/intel-quartus-prime-lite-edition-design-software-version-23-1-1-for-windows.html)
-- Embeddded Tool - [Intel SoC EDS Standard](https://www.intel.com/content/www/us/en/software-kit/661080/intel-soc-fpga-embedded-development-suite-soc-eds-standard-edition-software-version-20-1-for-linux.html)
+- FPGA Development Tool - [Quartus Prime Lite- Quartus (Quartus Prime 23.1std)](https://www.intel.com/content/www/us/en/software-kit/825278/intel-quartus-prime-lite-edition-design-software-version-23-1-1-for-windows.html)
+- Embeddded Tool - [Intel SoC EDS Standard- Intel SoC FPGA Embedded Development Suite Standard Edition 19.1.0.670](https://www.intel.com/content/www/us/en/software-kit/661080/intel-soc-fpga-embedded-development-suite-soc-eds-standard-edition-software-version-20-1-for-linux.html)
 - Simulation tool(optional) - [ModelSim-Intel FPGA Edition (includes Starter Edition)](https://www.intel.com/content/www/us/en/software-kit/750666/modelsim-intel-fpgas-standard-edition-software-version-20-1-1.html#:~:text=ModelSim%2DIntel%C2%AE%20FPGA%20Edition%20(includes%20Starter%20Edition))
 - python 3.9 or above
 - putty
@@ -70,7 +70,7 @@ Emulation of FPGA-based hardware redaction
 - [ ]  Install [OpenFPGA tool](https://www.youtube.com/watch?v=F9sMRmDewM0)
 - [ ]  Install Quartus 
 - [ ]  Install EDS tool, EDS shell
-- [ ]  Setup Development board
+- [ ]  Setup DE10 board, Install Linux on the board
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
