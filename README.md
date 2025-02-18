@@ -51,7 +51,7 @@ Emulation of FPGA-based hardware redaction
 - Embeddded Tool - [Intel SoC EDS Standard- Intel SoC FPGA Embedded Development Suite Standard Edition 19.1.0.670](https://www.intel.com/content/www/us/en/software-kit/661080/intel-soc-fpga-embedded-development-suite-soc-eds-standard-edition-software-version-20-1-for-linux.html)
 - Simulation tool(optional) - [ModelSim-Intel FPGA Edition (includes Starter Edition)](https://www.intel.com/content/www/us/en/software-kit/750666/modelsim-intel-fpgas-standard-edition-software-version-20-1-1.html#:~:text=ModelSim%2DIntel%C2%AE%20FPGA%20Edition%20(includes%20Starter%20Edition))
 - python 3.9 or above
-- putty
+- puTTY
 - Win32 Disk Imager 
 
 <!-- Hardwares -->
