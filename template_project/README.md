@@ -13,8 +13,10 @@ Points to remember:
   endmodule
   
   ```
+  To avoid conflicts with openFPGA fabric and Cyclone V libraries
 - Do not include SRC/sub_module/user_defined_template.v file created from OpenFPGA to our project
 - Check instantiation for D flip flop inside memories.v. It should be DFF_user instead of DFF.
+- Check module declaration and instantiation for OR2 in luts.v and inv_buf_passgate.v file. It should be OR2_user instead of OR2.
 
 ## Tutorial 
 1. Download **Template_Emulator** from this project.
