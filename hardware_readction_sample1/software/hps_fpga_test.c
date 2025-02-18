@@ -361,19 +361,7 @@ int readTV(void)
 	}  
 	fclose(file2);  
 	
-/*
-	char charArray[] = "Hello, world!"; 
 
-    // Method 1: Using string.h library
-    char *string1 = strdup(charArray); 
-
-    // Method 2: Manual copy
-    char string2[strlen(charArray) + 1];
-    strcpy(string2, charArray);
-
-    printf("String 1: %s\n", string1);
-    printf("String 2: %s\n", string2);
-    printf("String 3: %s\n", charArray); */
 	printf("leaving test vectors:\n" );
 	return 0;	
 }
@@ -423,17 +411,7 @@ bool compare_results(void)
 			
 			
 			
-		/* 	fgets(buffer, sizeof(buffer), file1);
-				
-				
-					
-					printf("Read output: %s \n", buffer);	
-					for(i= 0 ; i< sizeof(buffer) ; i++ )
-					{	
-						if (buffer[i] == "0" | buffer[i] == "1")
-							out_current[j][i] = buffer[i];
-					}
-					j++; */
+
 				
 		}
 		
