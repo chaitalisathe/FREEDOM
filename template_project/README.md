@@ -106,7 +106,9 @@ python3 openfpga_flow/scripts/run_fpga_task.py basic_tests/full_testbench/config
 > 
 8. Instantiate eFPGA fabric module in ASIC portion of original benchmark to create file asic_fpga_${benchmark}.v
 
-Or Run stitcher.py script
+Or 
+
+Run stitcher.py script
 
 ```
 python3 stitcher.py
@@ -187,20 +189,19 @@ make
 
 16. Transfer following files from software folder to HPS using scp command.
 
-	
-- fabric_bitstream_golden.bit	# Actual configuration bitstream
-- test_vectors.txt		# test vectors
-- golden_output.txt		# golden output for test vectors
-- hps_fpga_test			# copiled c program
+		 fabric_bitstream_golden.bit	# Actual configuration bitstream
+		 test_vectors.txt		# test vectors
+		 golden_output.txt		# golden output for test vectors
+		 hps_fpga_test			# copiled c program
 
 > [!NOTE]
-> test_vectors.txt file contains only binary digits.
+> - test_vectors.txt file contains only binary digits.
 > 
-> If input is a 10 bit vector, it is stored in LSB -> MSB order inside test_vectors.txt
+> - If input is a 10 bit vector, it is stored in LSB -> MSB order inside test_vectors.txt
 >
-> Similar case with output.txt file. Output is read from left to right as LSB -> MSB
+> - Similar case with output.txt file. Output is read from left to right as LSB -> MSB
 >
-> If benchmark has multiple input-output vectors, please make sure their connections are proper in asic_fpga_${benchmark}_top.v file. Modify them if needed.
+> - If benchmark has multiple input-output vectors, please make sure their connections are proper in asic_fpga_${benchmark}_top.v file. Modify them if needed.
 
 ```
 // ASIC + FPGA design
