@@ -103,6 +103,9 @@ def main():
     replace_word_in_file('./hardware/SRC/sub_module/luts.v', 'OR2', 'OR2_user')
     replace_word_in_file('./hardware/SRC/sub_module/inv_buf_passgate.v', 'OR2', 'OR2_user')
 
+    # Generate SDC file
+    sdc_str = read_file('asic_fpga_benchmark_top.sdc')
+    write_to_file('asic_fpga_{0}_top.sdc'.format(bench_name), sdc_str)
 
 if __name__ == "__main__":
     main()
