@@ -155,6 +155,13 @@ make
 - golden_output.txt		# golden output for test vectors
 - hps_fpga_test			# copiled c program
 
+> [!NOTE]
+> test_vectors.txt file contains only binary digits.
+> 
+> If input is a 10 bit vector, it is stored in LSB -> MSB order inside test_vectors.txt
+
+
+
 Run following commands to get IP address of Linux
 ```
 udhcpc
