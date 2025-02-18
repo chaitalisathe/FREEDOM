@@ -1,6 +1,6 @@
 Points to remember:
 
-- To use our hardware redaction script. Please use typical Benchmark module port declaration as follows:
+- To use our hardware redaction (general_redactor.py) script. Please use typical Benchmark module port declaration as follows:
   ```
   module myadder( A, B, CI, CO, SUM );
 
@@ -17,6 +17,23 @@ Points to remember:
 - all always blocks should have begin and end
  
   ```
+  module myadder( A, B, CI, CO, SUM );
+  input A; // Input a
+  input B;// Input b
+  input CI; // Input cin
+  output CO; // Output carry
+  output SUM ;// Output sum
+  
+  
+  assign SUM = A ^ B ^ CI;
+  
+  startpragma
+  assign CO = (A & B) | (A & CI) | (B & CI); 
+  endpragma
+  
+  endmodule
+
+  ```
 > [!NOTE]
 > To avoid conflicts between openFPGA fabric and Cyclone V libraries check following:-
 >
@@ -26,19 +43,22 @@ Points to remember:
 > - Check module declaration and instantiation for OR2 in luts.v and inv_buf_passgate.v file. It should be OR2_user instead of OR2.
 
 ## Tutorial 
-1. Download **Template_Emulator** from this project.
-2. Rename **Template_Emulator** to your preffered *project_name*
+1. Download **Template_project** from this project.
+2. Rename **Template_project** to your preffered ***project_name***
    
-3. Copy *${benchmark}.v* to this folder
-> Hardware redaction: 
-4. Redact a portion of design to *${benchmark}_redacted.v* file
+3. Copy ***${benchmark}.v*** to this folder
+   
+> Hardware redaction:
+
+4. Redact a portion of design to ***${benchmark}_redacted.v*** file
 
 Or 
 
-*Run script ====redaction=== to generate benchmark_redacted.v file*
+*Run script general_redactor.py to generate benchmark_redacted.v file*
+```
+python3 general_redactor.py
 ```
 
-```
 > eFPGA fabric generation:
 
 5. Generate eFPGA fabric using tutorial given in [OpenFPGA Tool](https://openfpga.readthedocs.io/en/master/tutorials/design_flow/verilog2verification/)
@@ -79,16 +99,28 @@ python3 openfpga_flow/scripts/run_fpga_task.py basic_tests/full_testbench/config
 > [!NOTE]
 > Remove extra characters other than bits of bitstream. Rename original bitstream to fabric_bitstream_golden.bit
 
+> Integrate ASIC portion and eFPGA fabric
+> 
+8. Instantiate eFPGA fabric module in ASIC portion of original benchmark to create file asic_fpga_${benchmark}.v
+
+Or Run stitcher.py script
+
+```
+python3 stitcher.py
+````
+
 > Quartus project and FPGA programming:
-8. Use Terasic System Builder to generate quartus project.
+8. Use Terasic System Builder to generate quartus project
 
 Or
 
-*Run ===generate quartus project === script to generate quartus project.*
+*Run following scripts to generate quartus project and generate the wrapper file*
+```
+python3 project_gen.py
+python3 generate_wrapper.py
 ```
 
-```
-9. Open Platform Designer in Quartus project, modify computer_system.qsys file [*Optional*] and then generate HDL.
+10. Open Platform Designer in Quartus project, modify computer_system.qsys file [*Optional*] and then generate HDL.
 
 Or 
 
@@ -106,18 +138,18 @@ qsys-generate computer_system.qsys --block-symbol-file --output-directory=/compu
 qsys-generate computer_system.qsys --synthesis=VERILOG --output-directory=/computer_system --family="Cyclone V" --part=5CSXFC6D6F31C6
 
 ```
-10. Modify **hardware/user_defined_parameters.sv** file for number of input, output bitwidths, size of bitstream
+11. Modify **hardware/user_defined_parameters.sv** file for number of input, output bitwidths, size of bitstream
 
 > [!NOTE]
 > Make sure to include all required design files in project.
 
-11. Compile quartus project to generate programming bitstream file *asic_fpga_${benchmark}_top.sof* 
+12. Compile quartus project to generate programming bitstream file *asic_fpga_${benchmark}_top.sof* 
 
 Or 
 
 *Open EDS shell and use following commands to compile Quartus project*
 
-Edit and use proper project name in following commands **asic_fpga_${benchmark}_top**
+Edit and use proper project name in following commands ***asic_fpga_${benchmark}_top***
 
 ```
 quartus_map --read_settings_files=on --write_settings_files=off asic_fpga_${benchmark}_top -c asic_fpga_${benchmark}_top
@@ -134,12 +166,12 @@ only if quartus_* commands fail during compilation-
 tclsh /computer_system/synthesis/submodules/hps_sdram_p0_parameters.tcl
 tclsh /computer_system/synthesis/submodules/hps_sdram_p0_pin_assignments.tcl
 ```
-12. Program DE-10 standard FPGA SoC development board using JTAG
+13. Program DE-10 standard FPGA SoC development board using JTAG
     
 > HPS programming
 
-13. Modify **software/hps_define.c** for number of input and output bits, size of bitstream 
-14. Compile *hps_fpga_test.c*
+14. Modify **software/hps_define.c** for number of input and output bits, size of bitstream 
+15. Compile *hps_fpga_test.c*
     
 ```
 cd software
@@ -150,7 +182,7 @@ make
 > Install Linux on the DE10- Standard Board from the "DE10 Standard_Getting_Started_Guide.pdf" to run Linux on DE1 0_Standard board provided by Terasic
 
 
-15. Transfer following files from software folder to HPS using scp command.
+16. Transfer following files from software folder to HPS using scp command.
 
 	
 - fabric_bitstream_golden.bit	# Actual configuration bitstream
@@ -181,7 +213,7 @@ scp hps_fpga_test root@192.168.2.6:/home/root/sample_project
 ```
 
 > Execution
-16. Execute c program on DE10- Standard Board 
+17. Execute c program on DE10- Standard Board 
 
 Go to sample_project flolder on linux
 
