@@ -80,7 +80,7 @@ Emulation of FPGA-based hardware redaction
 
 <!-- Usage -->
 ## Usage
-Download Template_Emulator from this project. This folder contains sample scripts and files required to build an emulator.
+Download template_project folder. This folder contains sample scripts and files required to build an emulator.
 
 <!-- Project Structure -->
 ### Project Structure
