@@ -166,7 +166,7 @@ python3 generate_wrapper.py
 
 **Or** 
 
-*Open EDS shell and use following command to compile qsys and generate HDL*
+*Open EDS shell and use following commands to compile qsys and generate HDL*
 
 
 Go to main project directory where **computer_system.qsys** file is stored using cd command
