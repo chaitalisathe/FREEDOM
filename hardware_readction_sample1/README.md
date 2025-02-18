@@ -5,6 +5,8 @@
 > Quartus project and FPGA programming:
 
 2. Open Platform Designer in Quartus project, modify computer_system.qsys file [*Optional*] and then generate HDL.
+![image](https://github.com/user-attachments/assets/33c9bfdf-9ca7-4bdd-b4be-0dcaca27722c)
+
 
 Or 
 
@@ -45,8 +47,19 @@ tclsh /computer_system/synthesis/submodules/hps_sdram_p0_parameters.tcl
 tclsh /computer_system/synthesis/submodules/hps_sdram_p0_pin_assignments.tcl
 ```
 3. Program DE-10 standard FPGA SoC development board using JTAG
-    
+
+Click on Auto detect and select device 5CSXFC6D6
+
+![image](https://github.com/user-attachments/assets/14be1486-8b6b-496f-b296-d655cd1ee1d5)
+
+Program selected device using asic_fpga_myadder_top.sof file
+
+![image](https://github.com/user-attachments/assets/36f575b8-e5c8-4c17-8942-8d96ddc07aef)
+   
 > HPS programming
+
+
+To generate golden_output.txt file, first compile *hps_fpga_generate_golden_output.c* file, execute it on DE10 board. Then compile and execute hps_fpga_test.c.
 
 4. Compile *hps_fpga_test.c*
     
@@ -56,30 +69,31 @@ make clean
 make
 ```
 
-> Install Linux on the DE10- Standard Board from the "DE10 Standard_Getting_Started_Guide.pdf" to run Linux on DE1 0_Standard board provided by Terasic
+>[!NOTE] 
+>Install Linux on the DE10- Standard Board from the "DE10 Standard_Getting_Started_Guide.pdf" to run Linux on DE10 Standard board provided by Terasic
 
 
-12. Transfer following files from software folder to HPS using scp command.
+5. Transfer following files from software folder to HPS using scp command.
 
 	
-- fabric_bitstream_golden.bit	# Actual configuration bitstream
-- test_vectors.txt		# test vectors
-- golden_output.txt		# golden output for test vectors
-- hps_fpga_test			# copiled c program
+- **fabric_bitstream_golden.bit**		# Actual configuration bitstream
+- **test_vectors.txt**			# test vectors (test vectors bits are stored in the order LSB -> MSB, for eg. if input bitwidth 							is 10, inputs are stored as [0:9])
+- **golden_output.txt**			# golden output for test vectors (golden output bits are stored in the order LSB -> MSB, for eg. if output bitwidth is 10, inputs are stored as [0:9])
+- **hps_fpga_test**				# copiled c program
 
 Run following commands to get IP address of Linux
 ```
 udhcpc
 ifconfig
 ```
-Sample command to transfer file from project directory to sample project directory on Linux
+Sample command to transfer file from project directory to sample_project directory on Linux
 
 ```
 scp hps_fpga_test root@192.168.x.y:/home/root/sample_project
 ```
 
 > Execution
-13. Execute c program on DE10- Standard Board 
+6. Execute c program on DE10- Standard Board 
 
 Go to sample_project folder on linux
 
