@@ -100,14 +100,15 @@ python3 openfpga_flow/scripts/run_fpga_task.py basic_tests/full_testbench/config
    to **software/** folder.
 
 > [!NOTE]
-> Remove extra characters other than bits of bitstream. Rename original bitstream to fabric_bitstream_golden.bit
+> Remove extra characters other than bits of bitstream. Rename original bitstream to **fabric_bitstream_golden.bit**
 
 > Integrate ASIC portion and eFPGA fabric
 > 
-8. Instantiate eFPGA fabric module in ASIC portion of original benchmark to create file asic_fpga_${benchmark}.v
+8. Instantiate eFPGA fabric module in ASIC portion of original benchmark to create file ***asic_fpga_${benchmark}.v***
 ```
 for example-
 
+// asic_fpga_myadder.v
 module asic_fpga_myadder( A, B, CI, CO, SUM, f_op_clk, f_prog_clk, f_reset, f_ccff_head, f_ccff_tail);
 input  	  A; 
 input 	  B; 
