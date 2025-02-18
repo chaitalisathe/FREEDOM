@@ -159,6 +159,8 @@ make
 > test_vectors.txt file contains only binary digits.
 > 
 > If input is a 10 bit vector, it is stored in LSB -> MSB order inside test_vectors.txt
+>
+> Similar case with output.txt file. Output is read from left to right as LSB -> MSB
 
 
 
