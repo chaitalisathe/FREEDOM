@@ -167,18 +167,18 @@ This repository has two main folders-
 
 
 ### Tutorials
-1. Download **Template_Emulator** from this project.
-2. Rename **Template_Emulator** to your preffered *project_name*
+1. Download **Template_project** from this project.
+2. Rename **Template_project** to your preffered ***project_name***
    
-3. Copy *${benchmark}.v* to this folder
+3. Copy ***${benchmark}.v*** to this folder
 > Hardware redaction: 
-4. Redact a portion of design to *${benchmark}_redacted.v* file
+4. Redact a portion of design to ***${benchmark}_redacted.v*** file
 
 Or 
 
-*Run script ====redaction=== to generate benchmark_redacted.v file*
+*Run script general_redactor.py to generate benchmark_redacted.v file*
 ```
-
+python3 general_redactor.py
 ```
 > eFPGA fabric generation:
 
@@ -203,17 +203,26 @@ python3 openfpga_flow/scripts/run_fpga_task.py basic_tests/full_testbench/config
    to **hardware/** folder
 7. Copy **fabric_bitstream.bit** file from OpenFPGA tool at path
    ${PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/*your_folder* to **software/** folder.
-
 Remove extra characters other than bits of bitstream.
+
+> Integrate ASIC portion and eFPGA fabric
+> Instantiate eFPGA fabric module in ASIC portion of original benchmark to create file asic_fpga_${benchmark}.v
+
+Or Run sticher.py script
+
+```
+python3 sticher.py
+````
 
 > Quartus project and FPGA programming:
 8. Use Terasic System Builder to generate quartus project
 
 Or
 
-*Run ===generate quartus project === script to generate quartus project.*
+*Run following scripts to generate quartus project and generate the wrapper file*
 ```
-
+python3 project_gen.py
+python3 generate_wrapper.py
 ```
 9. Open Platform Designer in Quartus project, modify computer_system.qsys file [*Optional*] and then generate HDL.
 
