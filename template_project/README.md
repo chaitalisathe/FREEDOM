@@ -191,7 +191,7 @@ qsys-generate computer_system.qsys --synthesis=VERILOG --output-directory=/compu
 
 *Open EDS shell and use following commands to compile Quartus project*
 
-Edit and use proper project name in following commands ***asic_fpga_${benchmark}_top***
+Edit and use proper project name in following commands for ***asic_fpga_${benchmark}_top***
 
 ```
 quartus_map --read_settings_files=on --write_settings_files=off asic_fpga_${benchmark}_top -c asic_fpga_${benchmark}_top
