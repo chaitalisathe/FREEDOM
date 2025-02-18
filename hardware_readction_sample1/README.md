@@ -77,9 +77,10 @@ make
 
 	
 - **fabric_bitstream_golden.bit**		# Actual configuration bitstream
-- **test_vectors.txt**			# test vectors (test vectors bits are stored in the order LSB -> MSB, for eg. if input bitwidth 							is 10, inputs are stored as [0:9])
-- **golden_output.txt**			# golden output for test vectors (golden output bits are stored in the order LSB -> MSB, for eg. if output bitwidth is 10, inputs are stored as [0:9])
-- **hps_fpga_test**				# copiled c program
+- **test_vectors.txt**				# test vectors (test vectors bits are stored in the order LSB -> MSB, for eg. if input bitwidth 							is 10, inputs are stored as [0:9])
+- **golden_output.txt**				# golden output for test vectors (golden output bits are stored in the order LSB -> MSB, for eg. if output bitwidth is 10, inputs are stored as [0:9])
+- **hps_fpga_test**				# compiled c program
+
 
 Run following commands to get IP address of Linux
 ```
