@@ -1,8 +1,9 @@
 Points to remember:
 
-- Typical Benchmark module port declaration
+- To use our hardware redaction script. Please use typical Benchmark module port declaration as follows:
   ```
   module myadder( A, B, CI, CO, SUM );
+
   input A; // Input a
   input B;// Input b
   input CI; // Input cin
@@ -13,10 +14,13 @@ Points to remember:
   endmodule
   
   ```
-  To avoid conflicts with openFPGA fabric and Cyclone V libraries
-- Do not include SRC/sub_module/user_defined_template.v file created from OpenFPGA to our project
-- Check instantiation for D flip flop inside memories.v. It should be DFF_user instead of DFF.
-- Check module declaration and instantiation for OR2 in luts.v and inv_buf_passgate.v file. It should be OR2_user instead of OR2.
+> [!NOTE]
+> To avoid conflicts between openFPGA fabric and Cyclone V libraries check following:-
+>
+> 
+> - Do not include SRC/sub_module/user_defined_template.v file created from OpenFPGA to our project
+> - Check instantiation for D flip flop inside memories.v. It should be DFF_user instead of DFF.
+> - Check module declaration and instantiation for OR2 in luts.v and inv_buf_passgate.v file. It should be OR2_user instead of OR2.
 
 ## Tutorial 
 1. Download **Template_Emulator** from this project.
@@ -36,20 +40,33 @@ Or
 
 5. Generate eFPGA fabric using tutorial given in [OpenFPGA Tool](https://openfpga.readthedocs.io/en/master/tutorials/design_flow/verilog2verification/)
 > [!NOTE]
-> Update following in *task.conf* file stored at {PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/config/
+> Update following in *task.conf* file stored at
+>
+> {PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/config/
+> 
+> 	[OpenFPGA_SHELL]
 > 
 > 	*openfpga_arch_file* = ${PATH:OPENFPGA_PATH}/openfpga_flow/openfpga_arch/k4_N4_40nm_cc_openfpga.xml
 > 
+> 	[ARCHITECTURES]
+> 
 > 	*arch0* = ${PATH:OPENFPGA_PATH}/openfpga_flow/vpr_arch/k4_N4_tileable_40nm.xml
+> 
+>	[BENCHMARKS]
 >
 > 	*bench0* = ${PATH:OPENFPGA_PATH}/openfpga_flow/benchmarks/benchmark_redacted.v
+>
+> 	[SYNTHESIS_PARAM]
+>
+> 	bench0_top = benchmark_redacted
 
 Run following command to generate eFPGA fabric
 ```
 python3 openfpga_flow/scripts/run_fpga_task.py basic_tests/full_testbench/configuration_chain
  
 ```
-
+> [!WARNING]
+> OpenFPGA verification using iverilog might fail due to discordance for input-output port naming conventions. You can find solution for that on OpenFPGA website.
 
 6. Copy **SRC** folder from OpenFPGA tool at path ${PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/*your_folder*
    to **hardware/** folder
@@ -59,7 +76,7 @@ python3 openfpga_flow/scripts/run_fpga_task.py basic_tests/full_testbench/config
 Remove extra characters other than bits of bitstream.
 
 > Quartus project and FPGA programming:
-8. Use Terasic System Builder to generate quartus project
+8. Use Terasic System Builder to generate quartus project.
 
 Or
 
@@ -86,6 +103,10 @@ qsys-generate computer_system.qsys --synthesis=VERILOG --output-directory=/compu
 
 ```
 10. Modify **hardware/user_defined_parameters.sv** file for number of input, output bitwidths, size of bitstream
+
+> [!NOTE]
+> Make sure to include all required design files in project.
+
 11. Compile quartus project to generate programming bitstream file *asic_fpga_${benchmark}_top.sof* 
 
 Or 
@@ -109,12 +130,12 @@ only if quartus_* commands fail during compilation-
 tclsh /computer_system/synthesis/submodules/hps_sdram_p0_parameters.tcl
 tclsh /computer_system/synthesis/submodules/hps_sdram_p0_pin_assignments.tcl
 ```
-9. Program DE-10 standard FPGA SoC development board using JTAG
+12. Program DE-10 standard FPGA SoC development board using JTAG
     
 > HPS programming
 
-10. Modify **software/hps_define.c** for number of input and output bits, size of bitstream 
-11. Compile *hps_fpga_test.c*
+13. Modify **software/hps_define.c** for number of input and output bits, size of bitstream 
+14. Compile *hps_fpga_test.c*
     
 ```
 cd software
@@ -125,7 +146,7 @@ make
 > Install Linux on the DE10- Standard Board from the "DE10 Standard_Getting_Started_Guide.pdf" to run Linux on DE1 0_Standard board provided by Terasic
 
 
-12. Transfer following files from software folder to HPS using scp command.
+15. Transfer following files from software folder to HPS using scp command.
 
 	
 - fabric_bitstream_golden.bit	# Actual configuration bitstream
@@ -145,7 +166,7 @@ scp hps_fpga_test root@192.168.2.6:/home/root/sample_project
 ```
 
 > Execution
-13. Execute c program on DE10- Standard Board 
+16. Execute c program on DE10- Standard Board 
 
 Go to sample_project flolder on linux
 
