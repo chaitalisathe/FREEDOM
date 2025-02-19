@@ -1,4 +1,4 @@
-# Hardware-Redaction-Emulator
+# FREEDOM (FPGA-based Hardware Redaction Emulator)
 <a id="readme-top"></a>
 Emulation of FPGA-based hardware redaction
 <!-- TABLE OF CONTENTS -->
