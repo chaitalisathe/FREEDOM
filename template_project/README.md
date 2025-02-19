@@ -34,7 +34,7 @@ Points to remember:
   endmodule
 
   ```
-> [!NOTE]
+> [!TIP]
 > To avoid conflicts between openFPGA fabric and Cyclone V libraries check following:-
 >
 > 
@@ -72,8 +72,8 @@ python3 general_redactor.py **myadder** startpragma endpragma
 > eFPGA fabric generation:
 
 5. Generate eFPGA fabric using tutorial given in [OpenFPGA Tool](https://openfpga.readthedocs.io/en/master/tutorials/design_flow/verilog2verification/)
-> [!NOTE]
-> Update following in *task.conf* file stored at
+> [!IMPORTANT]
+> Update following in ***task.conf*** file stored at
 >
 > {PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/config/
 > 
@@ -110,7 +110,7 @@ python3 openfpga_flow/scripts/run_fpga_task.py basic_tests/full_testbench/config
 
    to **software/** folder.
 
-> [!NOTE]
+> [!Caution]
 > Remove extra characters other than bits of bitstream. Rename original bitstream to **fabric_bitstream_golden.bit**
 
 > Integrate ASIC portion and eFPGA fabric
@@ -210,7 +210,7 @@ qsys-generate computer_system.qsys --synthesis=VERILOG --output-directory=/compu
 ```
 11. Modify **hardware/user_defined_parameters.sv** file for number of input, output bitwidths, size of bitstream
 
-> [!NOTE]
+> [!IMPORTANT]
 > Make sure to include all required design files in project.
 
 12. Compile quartus project to generate programming bitstream file *asic_fpga_${benchmark}_top.sof* 
@@ -237,8 +237,8 @@ tclsh /computer_system/synthesis/submodules/hps_sdram_p0_parameters.tcl
 tclsh /computer_system/synthesis/submodules/hps_sdram_p0_pin_assignments.tcl
 ```
 13. Program DE-10 standard FPGA SoC development board using JTAG
-> [!NOTE]
-> After configuring the FPGA on board, press warm reset HPS button.
+> [!IMPORTANT]
+> After configuring the FPGA on board, press warm HPS reset button.
 
 > HPS programming
 
