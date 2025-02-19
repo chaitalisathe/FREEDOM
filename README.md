@@ -6,9 +6,6 @@ Emulation of FPGA-based hardware redaction
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#introduction">Introduction</a>
-    </li>
-    <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
@@ -27,14 +24,6 @@ Emulation of FPGA-based hardware redaction
   </ol>
 </details>
 				
-<!-- Introduction -->
-## Introduction
-
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- Getting Started -->
 ## Getting Started
