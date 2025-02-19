@@ -8,7 +8,7 @@ Emulation of FPGA-based hardware redaction
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#pre-requisites">Pre-requisites</a></li>
         <li><a href="#setup and installation">Setup and Installation</a></li>
       </ul>
     </li>
@@ -29,8 +29,8 @@ Emulation of FPGA-based hardware redaction
 ## Getting Started
 
 
-<!-- Prerequisites -->
-### Prerequisites
+<!-- Pre-requisites -->
+### Pre-requisites
 
 
 <!-- Tools and softwares -->
