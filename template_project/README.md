@@ -47,7 +47,8 @@ Points to remember:
 2. Rename **template_project** to your preffered ***project_name***
    
 3. Copy ***${benchmark}.v*** to this folder
-   
+
+
 > Hardware redaction:
 
 4. Redact a portion of design to ***${benchmark}_redacted.v*** file
@@ -55,9 +56,17 @@ Points to remember:
 **Or** 
 
 *Run script general_redactor.py to generate benchmark_redacted.v file*
+
+Please use name of the benchmark module in place of **${benchmark}**
+
 ```
-python3 general_redactor.py
+python3 general_redactor.py ${benchmark} startpragma endpragma
+ 
 ```
+For example, 
+
+python3 general_redactor.py **myadder** startpragma endpragma
+
 
 > eFPGA fabric generation:
 
@@ -83,17 +92,18 @@ python3 general_redactor.py
 >
 > 	bench0_top = benchmark_redacted
 
-Run following command to generate eFPGA fabric
+Run following command to generate eFPGA fabric:
 ```
 python3 openfpga_flow/scripts/run_fpga_task.py basic_tests/full_testbench/configuration_chain
  
 ```
 > [!WARNING]
-> OpenFPGA verification using iverilog might fail due to discordance for input-output port naming conventions. You can find solution for that on OpenFPGA website.
+> OpenFPGA verification using iverilog may fail due to discordance for input-output port naming conventions. You can find a solution for that on OpenFPGA website.
 
 6. Copy **SRC** folder from OpenFPGA tool at path ${PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/*your_folder*
 
-   to **hardware/** folder
+   to **hardware/** folder.
+   
 8. Copy **fabric_bitstream.bit** file from OpenFPGA tool at path
    ${PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/*your_folder*
 
@@ -147,20 +157,37 @@ endmodule
 
 Run stitcher.py script. {*Update the script according to port declaration for other eFPGA fabrics than OpenFPGA k4n4 fabric*}
 
+Please use name of the benchmark module in place of **${benchmark}**
+
 ```
-python3 stitcher.py
+python3 stitcher.py ${benchmark} startpragma endpragma
 ````
 
+For example, 
+
+python3 stitcher.py **myadder** startpragma endpragma
+
+
 > Quartus project and FPGA programming:
-8. Use Terasic System Builder to generate quartus project
+9. Use Terasic System Builder to generate quartus project
 
 **Or**
 
 *Run following scripts to generate quartus project and generate the wrapper file*
+
+Please use name of the benchmark module in place of **${benchmark}**
+
 ```
-python3 project_gen.py
-python3 generate_wrapper.py
+python3 project_gen.py ${benchmark}
+python3 generate_wrapper.py ${benchmark}
 ```
+
+For example, 
+
+python3 project_gen.py **myadder**
+
+python3 generate_wrapper.py **myadder**
+
 
 10. Open Platform Designer in Quartus project, modify computer_system.qsys file [*Optional*] and then generate HDL.
 
