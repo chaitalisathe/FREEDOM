@@ -59,6 +59,7 @@ Points to remember:
 
 Please use name of the benchmark module in place of **${benchmark}**
 
+`cd` go to project_name directory
 ```
 python3 general_redactor.py ${benchmark} startpragma endpragma
  
@@ -199,7 +200,7 @@ python3 generate_wrapper.py **myadder**
 Go to main project directory where **computer_system.qsys** file is stored using cd command
 
 
-cd "go to project directory"
+`cd` "go to project directory"
 
 ```
 qsys-generate computer_system.qsys --block-symbol-file --output-directory=/computer_system --family="Cyclone V" --part=5CSXFC6D6F31C6
