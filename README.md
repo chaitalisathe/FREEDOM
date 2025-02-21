@@ -3,8 +3,11 @@
 Emulation of FPGA-based hardware redaction
 <!-- TABLE OF CONTENTS -->
 <details>
-  <summary>Table of Contents</summary>
+   <summary>Table of Contents</summary>
   <ol>
+    <li>
+      <a href="#introduction">Introduction</a>
+    </li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
@@ -24,10 +27,32 @@ Emulation of FPGA-based hardware redaction
   </ol>
 </details>
 				
+<!-- Introduction -->
+## Introduction
+
+				
+
+
+Most VLSI design companies are now fabless. This forces them to rely on complex international supply chains that can compromise their Intellectual Property (IP).
+
+One popular approach to address this is through logic locking. One of the problems with traditional locking mechanisms is that the locking circuitry is built into the netlist that the (HW) design company delivers to the foundry, which has now access to the entire design, including the locking mechanism. 
+
+This implies that they could potentially tamper with this circuitry or reverse engineer it to obtain the locking key. An alternative approach is to redact a portion of the hardware design by mapping it to an embedded FPGA (eFPGA).
+
+The unprogrammed design is then sent to be fabricated at an untrusted fab, which can now not reverse engineer the design because they do not have the bitstream configuration that makes the entire chip operate correctly. The bitstream acts in this case as the locking key. 
+Hardware redaction is nevertheless not 100% secure, and different attacks have already been proposed.
+
+The main problem with most of these attacks is that they require a long simulation times, but in reality, when applied to the actual hardware, are executed much faster.
+
+Thus, here we introduce a FPGA-based hardware redaction framework to speed up new attacks with the ultimate goal of learning how to build more robust hardware redaction systems.
+
+The framework is composed of an **automated ASIC and FPGA partitioning tool**, generating eFPGA fabric using [**OpenFPGA tool**](https://openfpga.readthedocs.io/en/master/), the mapping of these parts onto a low-cost **FPGA board (Terasic DE10-SoC**)  and a library of **software APIs** that run on the embedded processor of the FPGA in order to launch attacks onto the redacted systems mapped onto the FPGA fabric. 
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 <!-- Getting Started -->
 ## Getting Started
-
 
 <!-- Pre-requisites -->
 ### Pre-requisites
@@ -70,6 +95,22 @@ Emulation of FPGA-based hardware redaction
 <!-- Usage -->
 ## Usage
 Download template_project folder. This folder contains sample scripts and files required to build an emulator.
+This framework has four stages:
+1. **Hardware Partitioning**:
+In this stage original benchmark design **benchmark.v** is partitioned in two parts such that **asic_benchmark.v** and 		**benchamrk_redacted.v**.
+
+Where **benchmark.v** = **asic_benchmark.v** + **benchamrk_redacted.v**.
+Once we decide which part of design needs to be hidden, we need to add ***startprama*** and ***endpragma** at the start and end of that piece of code. 
+
+A script **general_redactor.py**, automatically generates a separate module for redacted portion and names it as  **benchamrk_redacted.v**.
+
+
+3. 
+
+
+
+
+
 
 <!-- Project Structure -->
 ### Project Structure
