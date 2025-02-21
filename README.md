@@ -164,7 +164,7 @@ General guidelines to use general_redactor.py script:
 		begin
 		C_adpcm_get_index_delta_t1_c1 = ~width_enc_data2_t1 [2] ;	
 		C_adpcm_get_index_delta_t1 = ( ( { 4{ C_adpcm_get_index_delta_t1_c1 } } & 
-				4'h1 )	// line#=../../adpcm_encoder.cpp:147
+				4'h1 )	
 			| ( { 4{ width_enc_data2_t1 [2] } } & { M_86_t , 1'h0 } ) ) ;
 		end
 	
@@ -172,7 +172,7 @@ General guidelines to use general_redactor.py script:
 	
 	
 	
-	always @ ( width_enc_data1_t2 )	// line#=../../adpcm_encoder.cpp:102
+	always @ ( width_enc_data1_t2 )	
 		begin
 		width_enc_data2_t1_c1 = ~width_enc_data1_t2 [3] ;
 		width_enc_data2_t1 = ( ( { 3{ width_enc_data1_t2 [3] } } & 3'h7 )	
