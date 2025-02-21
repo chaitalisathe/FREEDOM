@@ -333,6 +333,26 @@ python3 stitcher.py **myadder** startpragma endpragma
 
 
 #### Stage 4: Creating project on Quartus
+Use Terasic System Builder to generate quartus project
+![image](https://github.com/user-attachments/assets/8fbc18da-c54b-4d24-99de-e8cd789214e6)
+
+**Or**
+
+*Run following scripts to generate quartus project and generate the wrapper file*
+
+Please use name of the benchmark module in place of **${benchmark}**
+
+```
+python3 project_gen.py ${benchmark}
+python3 generate_wrapper.py ${benchmark}
+```
+
+For example, 
+
+python3 project_gen.py **myadder**
+
+python3 generate_wrapper.py **myadder**
+
 
 
 #### Stage 5: C programming for HPS
