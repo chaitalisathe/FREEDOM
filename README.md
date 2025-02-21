@@ -188,18 +188,7 @@ General guidelines to use general_redactor.py script:
 		end
 
   ```
-*Run script general_redactor.py to generate benchmark_redacted.v file*
 
-Please use name of the benchmark module in place of **${benchmark}**
-
-`cd` go to project_name directory
-
-```
-python3 general_redactor.py ${benchmark} startpragma endpragma
-```
-For example, 
-
-python3 general_redactor.py **myadder** startpragma endpragma
 
 #### Stage 2: eFPGA Fabric gneration and mapping of redacted part on eFPGA fabric using OpenFPGA
 
@@ -210,12 +199,6 @@ python3 general_redactor.py **myadder** startpragma endpragma
 - We are using full_testbench feature of OpenFPGA tool.
 - Generate eFPGA fabric using tutorial given in [OpenFPGA Tool](https://openfpga.readthedocs.io/en/master/tutorials/design_flow/verilog2verification/)
 
-> [!WARNING]
-> 
-> - Since we are using full_testbench feature, OpenFPGA tool automatically runs verification of that eFPGA fabric using iverilog tool.
-> - Although it successfully generates an eFPGA fabric, a verification might fail due to discordance for input-output port naming conventions.
-> - If your design has input vectors/buses then use following script in **task.config** file. openfpga_shell_template=${PATH:OPENFPGA_PATH}/openfpga_flow/openfpga_shell_scripts/full_testbench_example_without_ace_script.openfpga
-> - You will find more information about this scenario on [OpenFPGA tool](https://github.com/lnis-uofu/OpenFPGA/issues).
 
 
 #### Stage 3: Integrating ASIC and eFPGA designs
@@ -286,29 +269,6 @@ endmodule
 
 
 #### Stage 4: Creating project on Quartus
-Use Terasic System Builder to generate quartus project
-![image](https://github.com/user-attachments/assets/8fbc18da-c54b-4d24-99de-e8cd789214e6)
-
-**Or**
-
-*Run following scripts to generate quartus project and generate the wrapper file*
-
-Please use name of the benchmark module in place of **${benchmark}**
-
-```
-python3 project_gen.py ${benchmark}
-python3 generate_wrapper.py ${benchmark}
-```
-
-For example, 
-
-python3 project_gen.py **myadder**
-
-python3 generate_wrapper.py **myadder**
-
-> [!NOTE]
-> Detailed information about this stage 
-
 
 #### Stage 5: C programming for HPS
 
