@@ -95,7 +95,7 @@ module asic_fpga_benchmark_top(
 // OUTPUTs from the FPGA, INPUT to HPS
 //=======================================================
  
-wire [31:0] pp_in_axi; // This bus is used to send hamming distance between FPGA and design under test
+wire [31:0] pp_in_axi; //
 wire [31:0] pp_in_lw_axi ; // We will send flags overs this bus pp_in_lw_axi
 
 // INPUTS to the FPGA, OUTPUT from HPS
