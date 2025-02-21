@@ -317,6 +317,18 @@ assign CO = gfpga_pad_GPIO_PAD[18];
 
 endmodule
 ```
+Run stitcher.py script. {*Update the script according to port declaration for other eFPGA fabrics than OpenFPGA k4n4 fabric*}
+
+Please use name of the benchmark module in place of **${benchmark}**
+
+```
+python3 stitcher.py ${benchmark} startpragma endpragma
+````
+
+For example, 
+
+python3 stitcher.py **myadder** startpragma endpragma
+
 
 
 
