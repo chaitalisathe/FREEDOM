@@ -177,6 +177,9 @@ python3 stitcher.py **myadder** startpragma endpragma
 > Quartus project and FPGA programming:
 9. Use Terasic System Builder to generate quartus project
 
+![image](https://github.com/user-attachments/assets/8fbc18da-c54b-4d24-99de-e8cd789214e6)
+
+
 **Or**
 
 *Run following scripts to generate quartus project and generate the wrapper file*
