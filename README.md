@@ -244,8 +244,12 @@ python3 openfpga_flow/scripts/run_fpga_task.py basic_tests/full_testbench/config
 - Once eFPGA fabric is generated we can integrate that onto ASIC portion.
 - This can be done by instantiating FPGA_TOP module in **benchamrk.v** design in place of redacted part.
 - In this stage we also need to add additional ports related to eFPGA ports {such as- f_op_clk, f_prog_clk, f_reset, f_ccff_head, f_ccff_tail etc} to original benchmark module.
-- We
--  Consider following code snippet to understand diffenrence between original **benchmark.v** and **asic_fpga_benchmark.v**
+  
+> [!NOTE]
+> - Any eFPGA fabric can be used provided that all RTL files of eFPGA fabric are available
+> - To use other fabric we will need to modify module declaration, port list and connections to FPGA top instantiation in **asic_fpga_benchmark.v**
+  
+- Consider following code snippet to understand diffenrence between original **benchmark.v** and **asic_fpga_benchmark.v**
 
   ```
 // original benchamrk -> myadder.v 
@@ -268,6 +272,7 @@ python3 openfpga_flow/scripts/run_fpga_task.py basic_tests/full_testbench/config
   ```
   ```
   // Integrated ASIC and eFPGA design
+  // This file is generated using the script "stitcher.py"
   // asic_fpga_myadder.v
 
 module asic_fpga_myadder( A, B, CI, CO, SUM, f_op_clk, f_prog_clk, f_reset, f_ccff_head, f_ccff_tail);
