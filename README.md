@@ -68,7 +68,8 @@ The framework is composed of an **automated ASIC and FPGA partitioning tool**, g
 <!-- Hardwares -->
 #### Hardwares 
 - [Terasic DE10 Standard SoC board](https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&No=1081)
-- Network router
+- Microsoft Windows computer with USB ports and Ethernet Port
+- Ethernet Router
 - Micros SD Card, at 4GB minimum
 - Micros SD Card Card Reader
 
@@ -270,25 +271,37 @@ endmodule
 
 #### Stage 4: Creating project on Quartus
 - In this stage we create a project on Quartus tool.
-- The warpper or TOP module has ports connecting to HPS, LEDs, and other peripherals on FPGA SoC board.
+- The warpper or TOP module **(asic_fpga_benchmark_top.v)** has ports connecting to HPS, LEDs, and other peripherals on FPGA SoC board.
 - We instantiate a HPS, controller and asic_fpga_${benchamrk} modules and module generated from platform designer tool here.
-- On board FPGA uses QSYS or platform designer tool to drag and drop connections and components on Avalon bus.
+- In Intel SoC FPGA, the HPS logic and FPGA fabric are connected through the AXI (Advanced eXtensible Interface) bridge.
+- For HPS logic to communicate with FPGA fabric, Intel system integration tool Qsys should be used for the system design to add HPS component. 
+- A user can directly use pre-connected computer_system.qysys project or can open QSYS or platform designer tool to drag and drop connections and components on Avalon bus.
 - HPS and FPGA communicates through Avalon interface.
 - Controller manages all stages in execution of our design consisting of both ASIC and eFPGA parts.
-- HPS first sends bitstream bits to FPGA wrapper, a controller through control signals configures eFPGA portion.
-- Once configuration stage is over, HPS sends one test input at a time and reads output back from FPGA.
+
+- Once wrapper is designed, we can build build the project on Quartus and generate a progamming file for FPGA (asic_fpga_benchmark_top.sof)
+- FPGA can be programmed through JTAG interface using Quartus programming tool.
 
 
-#### Stage 5: C programming for HPS
-- From HPS side, all buses are mapped on memory.
-- 
+#### Stage 5: HPS programming using C
+- From the AXI master port of the HPS component, HPS can access those Qsys components whose memory mapped slave ports are connected to the master port.
+- We have developed program in C, which configures eFPGA fabric of redacted part and then carry out testing of hardware redaction system.
+- We have provided software APIs to carry out following tasks:
+  
+```  
+		Tasks					Inputs				  Outputs
+---------------------------------------------------------------------------------------------------------------------------------------
+1.Generate a bitstream for emulated eFPGA  		Size of bitstream   		  Bitstream
+2.Configure the eFPGA 					Bitstream
+3.Send test vectors 					Test vectors
+4.Read outputs returned 								Data returned from FPGA
+5.Compares results returned vs. golden outputs		Data returned, golden 		 Match or not
 
+```
+- User can modify these tasks according to their project requirements.
+- Currently, we are generating bitstreams randomly.
 
-
-#### STgae 6: Execution and evaluation
-
-
-
+- In a case where we know correct bitsream (fabric_bitstream_golden.bit), we can directly jump to task where we configure eFPGA part.
 
 <!-- Project Structure -->
 ### Project Structure
