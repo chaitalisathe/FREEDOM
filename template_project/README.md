@@ -99,7 +99,12 @@ python3 openfpga_flow/scripts/run_fpga_task.py basic_tests/full_testbench/config
  
 ```
 > [!WARNING]
-> OpenFPGA verification using iverilog may fail due to discordance for input-output port naming conventions. You can find a solution for that on OpenFPGA website.
+> 
+> - Since we are using full_testbench feature, OpenFPGA tool automatically runs verification of that eFPGA fabric using iverilog tool.
+> - Although it successfully generates an eFPGA fabric, a verification might fail due to discordance for input-output port naming conventions.
+> - If your design has input vectors/buses then use following script in **task.config** file. openfpga_shell_template=${PATH:OPENFPGA_PATH}/openfpga_flow/openfpga_shell_scripts/full_testbench_example_without_ace_script.openfpga
+> - You will find more information about this scenario on [OpenFPGA tool](https://github.com/lnis-uofu/OpenFPGA/issues).
+
 
 6. Copy **SRC** folder from OpenFPGA tool at path ${PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/*your_folder*
 
