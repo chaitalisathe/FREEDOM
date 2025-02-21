@@ -105,6 +105,10 @@ python3 openfpga_flow/scripts/run_fpga_task.py basic_tests/full_testbench/config
 > - If your design has input vectors/buses then use following script in **task.config** file. openfpga_shell_template=${PATH:OPENFPGA_PATH}/openfpga_flow/openfpga_shell_scripts/full_testbench_example_without_ace_script.openfpga
 > - You will find more information about this scenario on [OpenFPGA tool](https://github.com/lnis-uofu/OpenFPGA/issues).
 
+> [!NOTE]
+> - Any eFPGA fabric can be used provided that all RTL files of eFPGA fabric are available
+> - To use other fabric we will need to modify module declaration, port list and connections to FPGA top instantiation in **asic_fpga_benchmark.v**
+  
 
 6. Copy **SRC** folder from OpenFPGA tool at path ${PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/*your_folder*
 
