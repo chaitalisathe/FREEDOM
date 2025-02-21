@@ -271,13 +271,17 @@ endmodule
 #### Stage 4: Creating project on Quartus
 - In this stage we create a project on Quartus tool.
 - The warpper or TOP module has ports connecting to HPS, LEDs, and other peripherals on FPGA SoC board.
-- We instantiate a HPS, controller and asic_fpga_${benchamrk} modules here.
+- We instantiate a HPS, controller and asic_fpga_${benchamrk} modules and module generated from platform designer tool here.
+- On board FPGA uses QSYS or platform designer tool to drag and drop connections and components on Avalon bus.
+- HPS and FPGA communicates through Avalon interface.
 - Controller manages all stages in execution of our design consisting of both ASIC and eFPGA parts.
 - HPS first sends bitstream bits to FPGA wrapper, a controller through control signals configures eFPGA portion.
 - Once configuration stage is over, HPS sends one test input at a time and reads output back from FPGA.
 
 
 #### Stage 5: C programming for HPS
+- From HPS side, all buses are mapped on memory.
+- 
 
 
 
