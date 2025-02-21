@@ -93,7 +93,7 @@ The framework is composed of an **automated ASIC and FPGA partitioning tool**, g
 ## Usage
 Download template_project folder. This folder contains sample scripts and files required to build an emulator.
 
-This framework is divided in four stages:
+This framework is divided in following stages:
 #### Stage 1. **Hardware Partitioning**:
 In this stage original benchmark design **benchmark.v** is partitioned in two parts such that **asic_benchmark.v** and 		**benchamrk_redacted.v**.
 
