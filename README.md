@@ -209,40 +209,6 @@ python3 general_redactor.py **myadder** startpragma endpragma
   fabric architecture, provided that eFPGA fabric size fits on given FPGA board.
 - We are using full_testbench feature of OpenFPGA tool.
 - Generate eFPGA fabric using tutorial given in [OpenFPGA Tool](https://openfpga.readthedocs.io/en/master/tutorials/design_flow/verilog2verification/)
-> [!NOTE]
-> Update following in *task.conf* file stored at
->
-> {PATH:OPENFPGA_PATH}/openfpga_flow/tasks/basic_tests/full_testbench/configuration_chain/config/
-> 
-> 	[OpenFPGA_SHELL]
-> 
-> 	*openfpga_arch_file* = ${PATH:OPENFPGA_PATH}/openfpga_flow/openfpga_arch/k4_N4_40nm_cc_openfpga.xml
-> 
-> 	[ARCHITECTURES]
-> 
-> 	*arch0* = ${PATH:OPENFPGA_PATH}/openfpga_flow/vpr_arch/k4_N4_tileable_40nm.xml
-> 
->	[BENCHMARKS]
->
-> 	*bench0* = ${PATH:OPENFPGA_PATH}/openfpga_flow/benchmarks/benchmark_redacted.v
->
-> 	[SYNTHESIS_PARAM]
->
-> 	bench0_top = benchmark_redacted
-
-*Run following command to generate eFPGA fabric*
-```
-python3 openfpga_flow/scripts/run_fpga_task.py basic_tests/full_testbench/configuration_chain
- 
-```
-
-> [!NOTE]
-> To avoid conflicts between openFPGA fabric and Cyclone V libraries check following:-
->
-> 
-> - Do not include SRC/sub_module/user_defined_template.v file created from OpenFPGA to our project
-> - Check instantiation for D flip flop inside hardware/SRC/sub_module/memories.v. It should be DFF_user instead of DFF.
-> - Check module declaration and instantiation for OR2 in hardware/SRC/sub_module/luts.v and hardware/SRC/sub_module/inv_buf_passgate.v file. It should be OR2_user instead of OR2.
 
 > [!WARNING]
 > 
@@ -317,19 +283,6 @@ assign CO = gfpga_pad_GPIO_PAD[18];
 
 endmodule
 ```
-Run stitcher.py script. {*Update the script according to port declaration for other eFPGA fabrics than OpenFPGA k4n4 fabric*}
-
-Please use name of the benchmark module in place of **${benchmark}**
-
-```
-python3 stitcher.py ${benchmark} startpragma endpragma
-````
-
-For example, 
-
-python3 stitcher.py **myadder** startpragma endpragma
-
-
 
 
 #### Stage 4: Creating project on Quartus
@@ -353,6 +306,8 @@ python3 project_gen.py **myadder**
 
 python3 generate_wrapper.py **myadder**
 
+> [!NOTE]
+> Detailed information about this stage 
 
 
 #### Stage 5: C programming for HPS
