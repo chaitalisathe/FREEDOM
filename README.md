@@ -202,7 +202,7 @@ General guidelines to use general_redactor.py script:
 
 
 #### Stage 3: Integrating ASIC and eFPGA designs
-- Once eFPGA fabric is generated we can integrate that onto ASIC portion.
+- Once eFPGA fabric is generated we can integrate that with ASIC portion.
 - This can be done by instantiating FPGA_TOP module in **benchamrk.v** design in place of redacted part.
 - In this stage we also need to add additional ports related to eFPGA ports {such as- f_op_clk, f_prog_clk, f_reset, f_ccff_head, f_ccff_tail etc} to original benchmark module.
   
