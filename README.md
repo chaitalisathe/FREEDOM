@@ -251,30 +251,28 @@ python3 openfpga_flow/scripts/run_fpga_task.py basic_tests/full_testbench/config
   
 - Consider following code snippet to understand diffenrence between original **benchmark.v** and **asic_fpga_benchmark.v**
 
-  ```
+```
 // original benchamrk -> myadder.v 
-  module myadder( A, B, CI, CO, SUM );
-  input A; // Input a
-  input B;// Input b
-  input CI; // Input cin
-  output CO; // Output carry
-  output SUM ;// Output sum
-  
-  
-  assign SUM = A ^ B ^ CI;
-  
-  startpragma
-  assign CO = (A & B) | (A & CI) | (B & CI); 
-  endpragma
-  
-  endmodule
+module myadder( A, B, CI, CO, SUM );
+input A; // Input a
+input B;// Input b
+input CI; // Input cin
+output CO; // Output carry
+output SUM ;// Output sum
 
-  ```
-  ```
-  // Integrated ASIC and eFPGA design
-  // This file is generated using the script "stitcher.py"
-  // asic_fpga_myadder.v
 
+assign SUM = A ^ B ^ CI;
+
+startpragma
+assign CO = (A & B) | (A & CI) | (B & CI); 
+endpragma
+
+endmodule
+```
+ - Integrated ASIC and eFPGA design
+```
+// This file is generated using the script "stitcher.py"
+// asic_fpga_myadder.v
 module asic_fpga_myadder( A, B, CI, CO, SUM, f_op_clk, f_prog_clk, f_reset, f_ccff_head, f_ccff_tail);
 input  	  A; 
 input 	  B; 
@@ -288,7 +286,7 @@ output    f_ccff_tail;
 input 	  f_op_clk;
 
 assign SUM = A ^ B ^ CI;
- 
+
 //fpga fpga_inst (.B(B), .CI(CI), .A(A), .CO(CO));
 wire [0:31] gfpga_pad_GPIO_PAD;
 
@@ -304,10 +302,9 @@ assign gfpga_pad_GPIO_PAD[1] = (f_reset) ? 1'bz  : B;
 assign gfpga_pad_GPIO_PAD[4] = (f_reset) ? 1'bz  : CI;
 assign gfpga_pad_GPIO_PAD[30] = (f_reset) ? 1'bz : A;
 assign CO = gfpga_pad_GPIO_PAD[18];
-  
-endmodule
 
-  ```
+endmodule
+```
 
 
 
