@@ -1,6 +1,6 @@
-Points to remember:
+General guidelines to use general_redactor.py script:
 
-- To use our hardware redaction (general_redactor.py) script. Please use typical Benchmark module port declaration as follows:
+- Only define name of ports in module's initial declaration as Verilog 1995 standard. Please use following syntax for module port declaration- 
   ```
   module myadder( A, B, CI, CO, SUM );
 
@@ -12,7 +12,7 @@ Points to remember:
 
 
   endmodule
-
+  ```
 - pragmas cannot be between always blocks
 - all always blocks should have begin and end
  
