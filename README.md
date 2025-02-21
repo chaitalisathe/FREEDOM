@@ -189,9 +189,18 @@ General guidelines to use general_redactor.py script:
 
   ```
 *Run script general_redactor.py to generate benchmark_redacted.v file*
+
+Please use name of the benchmark module in place of **${benchmark}**
+
+`cd` go to project_name directory
+
 ```
-python3 general_redactor.py benchmark startpragma endpragma
+python3 general_redactor.py ${benchmark} startpragma endpragma
 ```
+For example, 
+
+python3 general_redactor.py **myadder** startpragma endpragma
+
 #### Stage 2: eFPGA Fabric gneration and mapping of redacted part on eFPGA fabric using OpenFPGA
 
 - To generate an eFPGA fabric we make use of an open source tool called [OpenFPGA](https://openfpga.readthedocs.io/en/master/).
