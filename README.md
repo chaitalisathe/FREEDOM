@@ -279,7 +279,7 @@ endmodule
 - HPS and FPGA communicates through Avalon interface.
 - Controller manages all stages in execution of our design consisting of both ASIC and eFPGA parts.
 
-- Once wrapper is designed, we can build build the project on Quartus and generate a progamming file for FPGA (asic_fpga_benchmark_top.sof)
+- Once wrapper is designed, we can build the project on Quartus and generate a configuration file for FPGA (asic_fpga_benchmark_top.sof)
 - FPGA can be programmed through JTAG interface using Quartus programming tool.
 
 
@@ -299,7 +299,7 @@ endmodule
 
 ```
 - User can modify these tasks according to their project requirements.
-- Currently, we are generating bitstreams randomly.
+- Currently, we are generating bits for bitstreams randomly.
 
 - In a case where we know correct bitsream (fabric_bitstream_golden.bit), we can directly jump to task where we configure eFPGA part.
 
