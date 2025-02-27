@@ -166,7 +166,7 @@ controller_ip FSM1(
 //input from open FPGA to controller
 .ccff_tail(ccff_tail) );
 
-
+	// Connect shared_input and design_output to inputs-outputs of benchmark
 ---------Instantiate asic_fpga_benchmark module here----------
 
 
