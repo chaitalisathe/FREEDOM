@@ -224,6 +224,7 @@ qsys-generate computer_system.qsys --synthesis=VERILOG --output-directory=/compu
 
 > [!IMPORTANT]
 > Make sure to include all required design files in project.
+> 
 > Check all module instantiations and their port connections.
 
 12. Compile quartus project to generate programming bitstream file *asic_fpga_${benchmark}_top.sof* 
