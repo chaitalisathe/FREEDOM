@@ -96,7 +96,7 @@ module asic_fpga_myadder_top(
 // OUTPUTs from the FPGA, INPUT to HPS
 //=======================================================
  
-wire [31:0] pp_in_axi; // This bus is used to send hamming distance between FPGA and design under test
+wire [31:0] pp_in_axi; 
 wire [31:0] pp_in_lw_axi ; // We will send flags overs this bus pp_in_lw_axi
 
 // INPUTS to the FPGA, OUTPUT from HPS
@@ -134,11 +134,11 @@ wire [0:0] ccff_tail;
 
 
 // ----- Shared inputs -------
-wire [INPUT_LENGTH -1 :0] shared_input;   // ############# update this
+wire [INPUT_LENGTH -1 :0] shared_input;   
 
 
 // ----- ASIC + FPGA design outputs -------
-wire [OUTPUT_LENGTH - 1 :0] design_output;    // ############# update this
+wire [OUTPUT_LENGTH - 1 :0] design_output;    
 
 
 
@@ -176,11 +176,11 @@ asic_fpga_myadder EMULATOR_DUT (
 .f_reset(fpga_reset) ,
 .f_ccff_head(ccff_head),
 .f_ccff_tail(ccff_tail),
-.A(shared_input[0]),
-.B(shared_input[1]),
-.CI(shared_input[2]),
-.SUM(design_output[0]),
-.CO(design_output[1])
+.A(shared_input[0]), // Connect shared_input to inputs of benchmark
+.B(shared_input[1]), // Connect shared_input to inputs of benchmark
+.CI(shared_input[2]), // Connect shared_input to inputs of benchmark
+.SUM(design_output[0]), // Connect design_output to output of benchmark
+.CO(design_output[1]) // Connect design_output to output of benchmark
 );		
 		
 		
